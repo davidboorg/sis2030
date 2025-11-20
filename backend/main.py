@@ -1,0 +1,549 @@
+from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from sqlmodel import Session, select
+from pydantic import BaseModel
+from typing import Optional, Dict, Any, List
+from datetime import datetime, timedelta
+from pathlib import Path
+import csv
+import json
+import os
+from dotenv import load_dotenv
+
+# Load env vars from .env.local
+load_dotenv(Path(__file__).resolve().parent / ".env.local")
+
+from passlib.context import CryptContext
+from jose import jwt
+from ai_service import (
+    parse_bom_description,
+    match_material,
+    generate_improvement_suggestions,
+    validate_component_data,
+    generate_transport_route,
+    chat_assistant
+)
+
+try:
+    from weasyprint import HTML
+except OSError:
+    print("Warning: WeasyPrint not available. PDF export will be disabled.")
+    HTML = None
+
+from database import get_session, init_db
+
+BACKEND_DIR = Path(__file__).resolve().parent
+EXPORT_DIR = BACKEND_DIR / "exports"
+EXPORT_DIR.mkdir(exist_ok=True)
+SECRET_KEY = os.getenv("JWT_SECRET", "demo-secret-change-in-production")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
+
+
+init_db()
+
+app = FastAPI(title="2030+ Calculator API")
+
+cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3030,http://127.0.0.1:3030,http://localhost:3031,http://127.0.0.1:3031").split(",")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=cors_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+from models import (
+    Organisation, User, Product, Component, MaterialItem,
+    ProcessItem, TransportItem, Run, RunResult
+)
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class ProductCreate(BaseModel):
+    name: str
+    unit: str
+    description: Optional[str] = None
+
+
+class ComponentCreate(BaseModel):
+    name: str
+    quantity: float
+    unit: str
+    parent_id: Optional[int] = None
+
+
+class MaterialCreate(BaseModel):
+    dataset_ref: str
+    mass_kg: float
+    recycled_content_pct: Optional[float] = 0
+
+
+class ProcessCreate(BaseModel):
+    dataset_ref: str
+    energy_kwh: float
+    parameters: Optional[Dict[str, Any]] = {}
+
+
+class TransportCreate(BaseModel):
+    mode: str
+    distance_km: float
+    origin_iso: str
+    dest_iso: str
+    dataset_ref: Optional[str] = None
+
+
+class RunCreate(BaseModel):
+    product_id: int
+    dataset_version: str = "v1"
+    method_version: str = "iso14067-v1"
+
+
+def get_current_user(db: Session = Depends(get_session)):
+    return db.exec(select(User).where(User.email == "demo@skandiform.example")).first()
+
+
+@app.post("/auth/login")
+def login(request: LoginRequest, db: Session = Depends(get_session)):
+    user = db.exec(select(User).where(User.email == request.email)).first()
+    if not user or request.password != "Demo123!":
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    access_token = jwt.encode(
+        {"sub": user.email, "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)},
+        SECRET_KEY, algorithm=ALGORITHM
+    )
+    return {"token": access_token}
+
+
+@app.get("/me")
+def get_me(current_user: User = Depends(get_current_user), db: Session = Depends(get_session)):
+    org = db.get(Organisation, current_user.org_id)
+    return {
+        "user": {
+            "id": current_user.id,
+            "email": current_user.email,
+            "role": current_user.role
+        },
+        "org": {
+            "id": org.id,
+            "name": org.name,
+            "plan": org.plan
+        }
+    }
+
+
+@app.post("/products")
+def create_product(product: ProductCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_session)):
+    db_product = Product(
+        org_id=current_user.org_id,
+        name=product.name,
+        unit=product.unit,
+        description=product.description
+    )
+    db.add(db_product)
+    db.commit()
+    db.refresh(db_product)
+    return {"product_id": db_product.id}
+
+
+@app.get("/products")
+def list_products(current_user: User = Depends(get_current_user), db: Session = Depends(get_session)):
+    products = db.exec(
+        select(Product).where(Product.org_id == current_user.org_id).order_by(Product.created_at.desc())
+    ).all()
+    return {
+        "products": [
+            {
+                "id": product.id,
+                "name": product.name,
+                "unit": product.unit,
+                "description": product.description,
+                "iso_standard": product.iso_standard,
+                "created_at": product.created_at.isoformat()
+            }
+            for product in products
+        ]
+    }
+
+
+@app.get("/products/{product_id}")
+def get_product(product_id: int, db: Session = Depends(get_session)):
+    product = db.get(Product, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    components = db.exec(select(Component).where(Component.product_id == product_id)).all()
+    component_ids = [component.id for component in components]
+
+    materials = []
+    processes = []
+    transports = []
+    if component_ids:
+        materials = db.exec(select(MaterialItem).where(MaterialItem.component_id.in_(component_ids))).all()
+        processes = db.exec(select(ProcessItem).where(ProcessItem.component_id.in_(component_ids))).all()
+        transports = db.exec(select(TransportItem).where(TransportItem.component_id.in_(component_ids))).all()
+
+    component_payloads = []
+    for component in components:
+        component_payloads.append(
+            {
+                "id": component.id,
+                "name": component.name,
+                "quantity": component.quantity,
+                "unit": component.unit,
+                "parent_id": component.parent_id,
+                "materials": [
+                    {
+                        "id": material.id,
+                        "dataset_ref": material.dataset_ref,
+                        "mass_kg": material.mass_kg,
+                        "recycled_content_pct": material.recycled_content_pct
+                    }
+                    for material in materials
+                    if material.component_id == component.id
+                ],
+                "processes": [
+                    {
+                        "id": process.id,
+                        "dataset_ref": process.dataset_ref,
+                        "energy_kwh": process.energy_kwh
+                    }
+                    for process in processes
+                    if process.component_id == component.id
+                ],
+                "transports": [
+                    {
+                        "id": transport.id,
+                        "mode": transport.mode,
+                        "distance_km": transport.distance_km,
+                        "origin_iso": transport.origin_iso,
+                        "dest_iso": transport.dest_iso,
+                        "dataset_ref": transport.dataset_ref
+                    }
+                    for transport in transports
+                    if transport.component_id == component.id
+                ]
+            }
+        )
+
+    return {
+        "product": {
+            "id": product.id,
+            "name": product.name,
+            "description": product.description,
+            "unit": product.unit,
+            "iso_standard": product.iso_standard,
+            "created_at": product.created_at.isoformat()
+        },
+        "components": component_payloads
+    }
+
+
+@app.post("/products/{product_id}/components")
+def create_component(product_id: int, component: ComponentCreate, db: Session = Depends(get_session)):
+    db_component = Component(
+        product_id=product_id,
+        name=component.name,
+        quantity=component.quantity,
+        unit=component.unit,
+        parent_id=component.parent_id
+    )
+    db.add(db_component)
+    db.commit()
+    db.refresh(db_component)
+    return {"component_id": db_component.id}
+
+
+@app.post("/components/{component_id}/materials")
+def add_material(component_id: int, material: MaterialCreate, db: Session = Depends(get_session)):
+    db_material = MaterialItem(
+        component_id=component_id,
+        dataset_ref=material.dataset_ref,
+        mass_kg=material.mass_kg,
+        recycled_content_pct=material.recycled_content_pct,
+        overrides_json=json.dumps({})
+    )
+    db.add(db_material)
+    db.commit()
+    return {"material_id": db_material.id}
+
+
+@app.post("/components/{component_id}/processes")
+def add_process(component_id: int, process: ProcessCreate, db: Session = Depends(get_session)):
+    db_process = ProcessItem(
+        component_id=component_id,
+        dataset_ref=process.dataset_ref,
+        energy_kwh=process.energy_kwh,
+        parameters_json=json.dumps(process.parameters)
+    )
+    db.add(db_process)
+    db.commit()
+    return {"process_id": db_process.id}
+
+
+@app.post("/components/{component_id}/transports")
+def add_transport(component_id: int, transport: TransportCreate, db: Session = Depends(get_session)):
+    db_transport = TransportItem(
+        component_id=component_id,
+        mode=transport.mode,
+        distance_km=transport.distance_km,
+        origin_iso=transport.origin_iso,
+        dest_iso=transport.dest_iso,
+        dataset_ref=transport.dataset_ref or f"{transport.mode}_freight"
+    )
+    db.add(db_transport)
+    db.commit()
+    return {"transport_id": db_transport.id}
+
+
+@app.post("/runs")
+def create_run(run: RunCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_session)):
+    db_run = Run(
+        product_id=run.product_id,
+        dataset_version=run.dataset_version,
+        method_version=run.method_version,
+        status="pending",
+        created_by=current_user.id,
+        iso_standards=json.dumps(["ISO 14040", "ISO 14067", "ISO 14046", "ISO 14055", "ISO 59004"])
+    )
+    db.add(db_run)
+    db.commit()
+
+    from calculator import calculate_indicators
+    results = calculate_indicators(db, run.product_id, run.dataset_version, run.method_version)
+
+    db_result = RunResult(
+        run_id=db_run.id,
+        indicators_json=json.dumps(results["indicators"]),
+        hotspots_json=json.dumps(results["hotspots"]),
+        assumptions_json=json.dumps(results["assumptions"]),
+        recommendations_json=json.dumps(results.get("recommendations", [])),
+        ai_notes_json=json.dumps(results.get("ai_suggestions", []))
+    )
+    db.add(db_result)
+    db_run.status = "completed"
+    db.commit()
+
+    return {
+        "run_id": db_run.id,
+        "status": db_run.status,
+        "indicators": results["indicators"],
+        "hotspots": results["hotspots"],
+        "assumptions": results["assumptions"],
+        "recommendations": results["recommendations"],
+        "ai_suggestions": results["ai_suggestions"]
+    }
+
+
+@app.get("/runs/{run_id}")
+def get_run(run_id: int, db: Session = Depends(get_session)):
+    run = db.get(Run, run_id)
+    if not run:
+        raise HTTPException(status_code=404, detail="Run not found")
+    result = db.exec(select(RunResult).where(RunResult.run_id == run_id)).first()
+    return {
+        "status": run.status,
+        "indicators": json.loads(result.indicators_json) if result else {},
+        "hotspots": json.loads(result.hotspots_json) if result else [],
+        "assumptions": json.loads(result.assumptions_json) if result else [],
+        "recommendations": json.loads(result.recommendations_json) if result and result.recommendations_json else [],
+        "ai_suggestions": json.loads(result.ai_notes_json) if result else []
+    }
+
+
+# AI Endpoints
+
+class BOMParseRequest(BaseModel):
+    text: str
+
+
+class MaterialMatchRequest(BaseModel):
+    query: str
+    context: Optional[str] = None
+
+
+class ImprovementRequest(BaseModel):
+    indicators: Dict[str, float]
+    hotspots: List[Dict[str, Any]]
+    components: Optional[List[Dict[str, Any]]] = None
+
+
+class ValidateRequest(BaseModel):
+    component_type: str
+    mass_kg: Optional[float] = None
+    material: Optional[str] = None
+    energy_kwh: Optional[float] = None
+
+
+class TransportRouteRequest(BaseModel):
+    origin: str
+    destination: str
+    product_type: Optional[str] = None
+
+
+class ChatRequest(BaseModel):
+    question: str
+    context: Optional[str] = None
+
+
+@app.post("/ai/parse-bom")
+async def ai_parse_bom(request: BOMParseRequest):
+    """Parse natural language BOM description into structured components"""
+    components = await parse_bom_description(request.text)
+    return {"components": components}
+
+
+@app.post("/ai/match-material")
+async def ai_match_material(request: MaterialMatchRequest):
+    """Match material name to dataset reference"""
+    matches = await match_material(request.query, request.context)
+    return {"matches": matches}
+
+
+@app.post("/ai/suggest/improvement")
+async def ai_suggest_improvement(request: ImprovementRequest):
+    """Generate improvement suggestions based on LCA results"""
+    suggestions = await generate_improvement_suggestions(
+        request.indicators,
+        request.hotspots,
+        request.components
+    )
+    return {"suggestions": suggestions}
+
+
+@app.post("/ai/validate")
+async def ai_validate(request: ValidateRequest):
+    """Validate component data and flag unrealistic values"""
+    warnings = await validate_component_data(
+        request.component_type,
+        request.mass_kg,
+        request.material,
+        request.energy_kwh
+    )
+    return {"warnings": warnings}
+
+
+@app.post("/ai/transport-route")
+async def ai_transport_route(request: TransportRouteRequest):
+    """Generate realistic transport route"""
+    route = await generate_transport_route(
+        request.origin,
+        request.destination,
+        request.product_type
+    )
+    return route
+
+
+@app.post("/ai/chat")
+async def ai_chat(request: ChatRequest):
+    """Chat assistant for LCA guidance"""
+    response = await chat_assistant(request.question, request.context)
+    return response
+
+
+@app.post("/runs/{run_id}/export")
+def export_run(run_id: int, format: str = "pdf", db: Session = Depends(get_session)):
+    run = db.get(Run, run_id)
+    if not run:
+        raise HTTPException(status_code=404, detail="Run not found")
+    result = db.exec(select(RunResult).where(RunResult.run_id == run_id)).first()
+    if not result:
+        raise HTTPException(status_code=404, detail="Result not found")
+
+    indicators = json.loads(result.indicators_json)
+    hotspots = json.loads(result.hotspots_json)
+    recommendations = json.loads(result.recommendations_json) if result.recommendations_json else []
+    iso_standards = json.loads(run.iso_standards)
+
+    units = {
+        "co2e_kg": "kg CO₂e",
+        "water_l": "liter",
+        "energy_mj": "MJ",
+        "land_m2a": "m²·år",
+        "acid_mol_hplus": "mol H⁺-eq",
+        "eutro_g_po4": "g PO₄³⁻-eq",
+        "biodiversity_index": "index (0-1)",
+        "circularity_pct": "%"
+    }
+
+    if format == "pdf":
+        html = f"""
+        <html lang="sv">
+          <head>
+            <meta charset="utf-8" />
+            <style>
+              body {{ font-family: 'Inter', sans-serif; margin: 24px; color: #0F172A; }}
+              h1 {{ color: #003F87; }}
+              h2 {{ color: #0066CC; margin-top: 32px; }}
+              table {{ width: 100%; border-collapse: collapse; margin-top: 16px; }}
+              th, td {{ border: 1px solid #CBD5E1; padding: 8px; text-align: left; font-size: 12px; }}
+              th {{ background-color: #F1F5F9; }}
+              .badge {{ display: inline-block; padding: 4px 8px; background: #003F87; color: white; border-radius: 999px; font-size: 10px; margin-right: 8px; }}
+            </style>
+          </head>
+          <body>
+            <h1>2030+ Calculator – ISO-rapport</h1>
+            <p><strong>Produkt-ID:</strong> {run.product_id}</p>
+            <p><strong>Metodversion:</strong> {run.method_version}</p>
+            <p><strong>Beräknad:</strong> {run.created_at.strftime("%Y-%m-%d %H:%M")}</p>
+            <div>
+              {"".join(f"<span class='badge'>{code}</span>" for code in iso_standards)}
+            </div>
+
+            <h2>Miljöindikatorer</h2>
+            <table>
+              <thead>
+                <tr><th>Indikator</th><th>Värde</th><th>Enhet</th></tr>
+              </thead>
+              <tbody>
+                {"".join(f"<tr><td>{key}</td><td>{value}</td><td>{units.get(key, '')}</td></tr>" for key, value in indicators.items())}
+              </tbody>
+            </table>
+
+            <h2>Hotspots</h2>
+            <table>
+              <thead>
+                <tr><th>Namn</th><th>Bidrag</th></tr>
+              </thead>
+              <tbody>
+                {"".join(f"<tr><td>{h['name']}</td><td>{h.get('share_pct') or h.get('contribution_pct', 0)}%</td></tr>" for h in hotspots)}
+              </tbody>
+            </table>
+
+            <h2>Rekommendationer</h2>
+            <ul>
+              {"".join(f"<li><strong>{rec['action']}</strong> – {rec['impact']} ({rec['standard']})</li>" for rec in recommendations)}
+            </ul>
+          </body>
+        </html>
+        """
+        output_path = EXPORT_DIR / f"run_{run_id}_iso_report.pdf"
+        if HTML:
+            HTML(string=html).write_pdf(str(output_path))
+            return {"report_url": f"/exports/{output_path.name}"}
+        else:
+            raise HTTPException(status_code=501, detail="PDF export not available (WeasyPrint missing)")
+
+    if format == "csv":
+        output_path = EXPORT_DIR / f"run_{run_id}_data.csv"
+        with output_path.open("w", newline="", encoding="utf-8") as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(["Indikator", "Värde", "Enhet"])
+            for key, value in indicators.items():
+                writer.writerow([key, value, units.get(key, "")])
+        return {"report_url": f"/exports/{output_path.name}"}
+
+    raise HTTPException(status_code=400, detail="Invalid export format")
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+
+

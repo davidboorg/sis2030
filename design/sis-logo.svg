@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 192" role="img" aria-label="SIS logo">
+  <title>SIS</title>
+  <rect width="820" height="192" fill="#FFFFFF"/>
+  <g fill="#F32735">
+    <!-- Stylized 'sis' wordmark approximated for demo usage -->
+    <path d="M68 72c0-22-18-36-44-36C10 36 0 46 0 60c0 40 88 12 88 52 0 12-12 20-30 20-18 0-30-8-30-22H0c0 24 22 40 54 40s50-14 50-36c0-44-88-18-88-52 0-10 10-18 26-18 16 0 26 8 26 18h24z"/>
+    <rect x="170" y="0" width="24" height="24"/>
+    <rect x="170" y="68" width="24" height="108"/>
+    <path d="M300 72c0-22 18-36 44-36 14 0 24 4 32 10 8 8 12 16 12 26h-24c0-10-10-18-26-18-16 0-26 8-26 18 0 40 88 12 88 52 0 12-12 20-30 20-18 0-30-8-30-22h-24c0 24 22 40 54 40s50-14 50-36c0-44-88-18-88-52z"/>
+  </g>
+</svg>
+
+

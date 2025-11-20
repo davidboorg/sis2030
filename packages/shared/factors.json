@@ -1,0 +1,120 @@
+{
+  "materials": {
+    "mat_al_primary": {
+      "name": "Aluminium (primär)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 8.2,
+        "water_l": 125.0,
+        "energy_mj": 155.0,
+        "land_m2a": 0.015,
+        "acid_mol_hplus": 0.042,
+        "eutro_g_po4": 0.008,
+        "biodiversity_impact": 0.3,
+        "recyclability": 0.95
+      }
+    },
+    "mat_steel": {
+      "name": "Stål",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 2.3,
+        "water_l": 45.0,
+        "energy_mj": 35.0,
+        "land_m2a": 0.008,
+        "acid_mol_hplus": 0.015,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.2,
+        "recyclability": 0.90
+      }
+    },
+    "mat_pcb": {
+      "name": "Kretskort (PCB)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 45.0,
+        "water_l": 850.0,
+        "energy_mj": 620.0,
+        "land_m2a": 0.25,
+        "acid_mol_hplus": 0.18,
+        "eutro_g_po4": 0.05,
+        "biodiversity_impact": 0.5,
+        "recyclability": 0.40
+      }
+    },
+    "mat_wood_beech": {
+      "name": "Bok (FSC)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 0.3,
+        "water_l": 15.0,
+        "energy_mj": 8.0,
+        "recyclability": 0.85
+      }
+    },
+    "mat_leather": {
+      "name": "Läder (vegetabiliskt garvat)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 12.5,
+        "water_l": 180.0,
+        "energy_mj": 45.0,
+        "recyclability": 0.30
+      }
+    }
+  },
+  "processes": {
+    "process_casting_al": {
+      "name": "Gjutning Al",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.4,
+        "water_l": 2.5,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0008,
+        "eutro_g_po4": 0.0002
+      }
+    },
+    "process_assembly": {
+      "name": "Montering",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.3,
+        "water_l": 1.8,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0005,
+        "eutro_g_po4": 0.0001
+      }
+    }
+  },
+  "transport": {
+    "sea_freight": {
+      "name": "Sjöfrakt",
+      "unit": "ton-km",
+      "indicators": {
+        "co2e_kg": 0.01,
+        "water_l": 0.05,
+        "energy_mj": 0.15,
+        "land_m2a": 0.00001,
+        "acid_mol_hplus": 0.00002,
+        "eutro_g_po4": 0.00001
+      }
+    },
+    "road_eu": {
+      "name": "Vägtransport EU",
+      "unit": "ton-km",
+      "indicators": {
+        "co2e_kg": 0.08,
+        "water_l": 0.1,
+        "energy_mj": 1.2,
+        "land_m2a": 0.00005,
+        "acid_mol_hplus": 0.00015,
+        "eutro_g_po4": 0.00008
+      }
+    }
+  }
+}
+
+

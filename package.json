@@ -1,0 +1,17 @@
+{
+  "name": "2030-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter app dev\" \"cd backend && uvicorn main:app --reload --port 8001\"",
+    "build": "pnpm --filter app build",
+    "start": "pnpm --filter app start",
+    "seed": "cd backend && python seed.py",
+    "test": "pnpm --filter app test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+
+
