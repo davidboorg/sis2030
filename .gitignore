@@ -36,6 +36,7 @@ node_modules/
 out/
 dist/
 .cache/
+.pnpm-store/
 
 # Database
 *.db
