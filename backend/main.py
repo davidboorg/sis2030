@@ -392,6 +392,230 @@ class ChatRequest(BaseModel):
     context: Optional[str] = None
 
 
+# ── Industry templates ──────────────────────────────────────────────
+
+INDUSTRY_TEMPLATES = {
+    "furniture": {
+        "name": "Möbel",
+        "example_product": "Kontorsstol",
+        "components": [
+            {
+                "name": "Stålfot med hjul",
+                "quantity": 4.5,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "steel", "mass_kg": 4.5, "recycled_content_pct": 0}],
+                "processes": [{"dataset_ref": "process_metal_forming", "energy_kwh": 8}],
+                "transports": [
+                    {"mode": "sea", "distance_km": 18000, "origin_iso": "CN", "dest_iso": "SE"},
+                    {"mode": "road", "distance_km": 450, "origin_iso": "SE", "dest_iso": "SE"},
+                ],
+            },
+            {
+                "name": "Sits med skumstoppning",
+                "quantity": 2.2,
+                "unit": "kg",
+                "materials": [
+                    {"dataset_ref": "foam", "mass_kg": 0.8, "recycled_content_pct": 0},
+                    {"dataset_ref": "polyester", "mass_kg": 1.4, "recycled_content_pct": 20},
+                ],
+                "processes": [
+                    {"dataset_ref": "process_foam_molding", "energy_kwh": 3},
+                    {"dataset_ref": "process_sewing", "energy_kwh": 1.5},
+                ],
+                "transports": [],
+            },
+            {
+                "name": "Ryggstöd",
+                "quantity": 1.8,
+                "unit": "kg",
+                "materials": [
+                    {"dataset_ref": "plastic", "mass_kg": 1.2, "recycled_content_pct": 0},
+                    {"dataset_ref": "polyester", "mass_kg": 0.6, "recycled_content_pct": 20},
+                ],
+                "processes": [],
+                "transports": [],
+            },
+            {
+                "name": "Gasdämpare",
+                "quantity": 0.6,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "steel", "mass_kg": 0.6, "recycled_content_pct": 0}],
+                "processes": [],
+                "transports": [],
+            },
+        ],
+    },
+    "food": {
+        "name": "Livsmedel",
+        "example_product": "Förpackat livsmedel (500g)",
+        "components": [
+            {
+                "name": "Primärförpackning",
+                "quantity": 0.035,
+                "unit": "kg",
+                "materials": [
+                    {"dataset_ref": "plastic", "mass_kg": 0.025, "recycled_content_pct": 30},
+                    {"dataset_ref": "cardboard", "mass_kg": 0.010, "recycled_content_pct": 80},
+                ],
+                "processes": [{"dataset_ref": "process_packaging", "energy_kwh": 0.5}],
+                "transports": [
+                    {"mode": "road", "distance_km": 200, "origin_iso": "SE", "dest_iso": "SE"},
+                ],
+            },
+            {
+                "name": "Sekundärförpackning (kartong)",
+                "quantity": 0.12,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "cardboard", "mass_kg": 0.12, "recycled_content_pct": 85}],
+                "processes": [],
+                "transports": [],
+            },
+            {
+                "name": "Pall och krympfilm",
+                "quantity": 0.05,
+                "unit": "kg",
+                "materials": [
+                    {"dataset_ref": "wood", "mass_kg": 0.03, "recycled_content_pct": 0},
+                    {"dataset_ref": "plastic", "mass_kg": 0.02, "recycled_content_pct": 0},
+                ],
+                "processes": [],
+                "transports": [
+                    {"mode": "road", "distance_km": 500, "origin_iso": "SE", "dest_iso": "SE"},
+                ],
+            },
+        ],
+    },
+    "workshop": {
+        "name": "Verkstad",
+        "example_product": "CNC-bearbetad detalj i stål",
+        "components": [
+            {
+                "name": "Stålämne",
+                "quantity": 2.5,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "steel", "mass_kg": 2.5, "recycled_content_pct": 25}],
+                "processes": [
+                    {"dataset_ref": "process_metal_forming", "energy_kwh": 12},
+                    {"dataset_ref": "process_cnc_machining", "energy_kwh": 8},
+                ],
+                "transports": [
+                    {"mode": "road", "distance_km": 300, "origin_iso": "SE", "dest_iso": "SE"},
+                ],
+            },
+            {
+                "name": "Ytbehandling",
+                "quantity": 0.1,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "coating", "mass_kg": 0.1, "recycled_content_pct": 0}],
+                "processes": [{"dataset_ref": "process_surface_treatment", "energy_kwh": 3}],
+                "transports": [],
+            },
+            {
+                "name": "Förpackning",
+                "quantity": 0.2,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "cardboard", "mass_kg": 0.2, "recycled_content_pct": 90}],
+                "processes": [],
+                "transports": [],
+            },
+        ],
+    },
+}
+
+
+@app.get("/templates")
+def list_templates():
+    """List available industry templates"""
+    return {
+        "templates": [
+            {"id": tid, "name": t["name"], "example_product": t["example_product"]}
+            for tid, t in INDUSTRY_TEMPLATES.items()
+        ]
+    }
+
+
+@app.get("/templates/{template_id}")
+def get_template(template_id: str):
+    """Get full template with pre-filled components"""
+    template = INDUSTRY_TEMPLATES.get(template_id)
+    if not template:
+        raise HTTPException(status_code=404, detail="Template not found")
+    return template
+
+
+@app.post("/templates/{template_id}/create")
+def create_from_template(
+    template_id: str,
+    product_name: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_session),
+):
+    """Create a product pre-filled from an industry template"""
+    template = INDUSTRY_TEMPLATES.get(template_id)
+    if not template:
+        raise HTTPException(status_code=404, detail="Template not found")
+
+    product = Product(
+        org_id=current_user.org_id,
+        name=product_name or template["example_product"],
+        description=f"Skapad från branschmall: {template['name']}",
+        unit="st",
+        iso_standard="ISO 14040, ISO 14067, ISO 14046",
+    )
+    db.add(product)
+    db.commit()
+    db.refresh(product)
+
+    for comp_data in template["components"]:
+        comp = Component(
+            product_id=product.id,
+            name=comp_data["name"],
+            quantity=comp_data["quantity"],
+            unit=comp_data["unit"],
+        )
+        db.add(comp)
+        db.commit()
+        db.refresh(comp)
+
+        for mat in comp_data.get("materials", []):
+            db.add(
+                MaterialItem(
+                    component_id=comp.id,
+                    dataset_ref=mat["dataset_ref"],
+                    mass_kg=mat["mass_kg"],
+                    recycled_content_pct=mat.get("recycled_content_pct", 0),
+                    overrides_json="{}",
+                )
+            )
+
+        for proc in comp_data.get("processes", []):
+            db.add(
+                ProcessItem(
+                    component_id=comp.id,
+                    dataset_ref=proc["dataset_ref"],
+                    energy_kwh=proc["energy_kwh"],
+                    parameters_json="{}",
+                )
+            )
+
+        for trans in comp_data.get("transports", []):
+            db.add(
+                TransportItem(
+                    component_id=comp.id,
+                    mode=trans["mode"],
+                    distance_km=trans["distance_km"],
+                    origin_iso=trans["origin_iso"],
+                    dest_iso=trans["dest_iso"],
+                    dataset_ref=f"{trans['mode']}_freight",
+                )
+            )
+
+    db.commit()
+    return {"product_id": product.id, "template": template_id, "name": product.name}
+
+
+# ── AI Endpoints ───────────────────────────────────────────────────
+
 @app.post("/ai/parse-bom")
 async def ai_parse_bom(request: BOMParseRequest):
     """Parse natural language BOM description into structured components"""

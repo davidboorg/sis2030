@@ -89,12 +89,12 @@ export default function Indicators() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-sis-gray-900 mb-4">
-            Åtta miljöindikatorer
+          <h2 className="text-3xl sm:text-4xl font-bold text-sis-gray-900 mb-4">
+            Allt din kund vill veta om din produkt
           </h2>
           <p className="text-lg text-sis-gray-600 max-w-2xl mx-auto">
-            Omfattande miljöanalys enligt internationella ISO-standarder för komplett 
-            förståelse av produktens påverkan på klimat, vatten, biodiversitet och cirkularitet.
+            Åtta miljöindikatorer beräknade enligt ISO-standarder. Redo att bifoga
+            i anbud, offerter och hållbarhetsredovisning.
           </p>
         </motion.div>
 

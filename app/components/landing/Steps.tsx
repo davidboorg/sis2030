@@ -1,46 +1,37 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FileText, Package, Calculator, Target, Download } from 'lucide-react'
+import { MousePointerClick, Sliders, Download } from 'lucide-react'
 import Link from 'next/link'
 
 const steps = [
   {
     number: '1',
-    icon: FileText,
-    title: 'Skapa produkt',
-    description: 'Definiera produkten och dess funktionella enhet'
+    icon: MousePointerClick,
+    title: 'Välj din bransch',
+    description: 'Möbel, livsmedel, verkstad, bygg eller textil - välj en mall och få en förifylld produkt med typiska material och processer.',
+    highlight: '30 sekunder',
   },
   {
     number: '2',
-    icon: Package,
-    title: 'Lägg till material och processer',
-    description: 'Bygg upp produktens kompletta materialförteckning'
+    icon: Sliders,
+    title: 'Justera det som avviker',
+    description: 'Ändra vikter, material och transporter så det matchar din produkt. AI:n hjälper dig om du kör fast.',
+    highlight: '5-10 minuter',
   },
   {
     number: '3',
-    icon: Calculator,
-    title: 'Kör beräkning',
-    description: 'Analysera miljöpåverkan enligt ISO-standarder'
-  },
-  {
-    number: '4',
-    icon: Target,
-    title: 'Identifiera hotspots',
-    description: 'Hitta de största bidragarna till miljöpåverkan'
-  },
-  {
-    number: '5',
     icon: Download,
-    title: 'Exportera rapport',
-    description: 'Generera professionell dokumentation för granskning'
-  }
+    title: 'Få resultat och bevis',
+    description: 'Klimatpåverkan, vattenförbrukning, cirkularitet - allt beräknat. Exportera rapport eller dela ditt hållbarhetsbevis direkt.',
+    highlight: 'Direkt',
+  },
 ]
 
 export default function Steps() {
   return (
     <section className="py-20 px-6 bg-gradient-to-b from-sis-gray-50 to-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -48,64 +39,60 @@ export default function Steps() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-sis-gray-900 mb-4">
-            Så fungerar 2030+ Calculator
+          <h2 className="text-3xl sm:text-4xl font-bold text-sis-gray-900 mb-4">
+            Tre steg. Tio minuter. Klart.
           </h2>
           <p className="text-lg text-sis-gray-600 max-w-2xl mx-auto">
-            En strukturerad process för tillförlitliga resultat.
+            Ingen ISO-expertis krävs. Ingen konsult behövs.
           </p>
         </motion.div>
 
-        <div className="relative">
-          {/* Connection line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full 
-                          bg-gradient-to-b from-sis-pomegranate/20 via-sis-pomegranate/40 to-sis-pomegranate/20
-                          hidden lg:block" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              viewport={{ once: true }}
+              className="relative bg-white rounded-2xl p-8 border border-sis-gray-200
+                         hover:shadow-lg transition-all duration-300"
+            >
+              {/* Step number */}
+              <div className="absolute -top-4 left-8">
+                <span className="inline-flex items-center justify-center w-8 h-8
+                               bg-sis-pomegranate text-white text-sm font-bold rounded-full">
+                  {step.number}
+                </span>
+              </div>
 
-          <div className="space-y-8 lg:space-y-12">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={`flex flex-col lg:flex-row items-center gap-8
-                           ${index % 2 === 0 ? 'lg:flex-row-reverse' : ''}`}
-              >
-                {/* Content */}
-                <div className={`flex-1 ${index % 2 === 0 ? 'lg:text-right' : ''}`}>
-                  <div className={`inline-block ${index % 2 === 0 ? 'lg:ml-auto' : ''}`}>
-                    <div className={`flex items-center gap-4 mb-3
-                                    ${index % 2 === 0 ? 'lg:flex-row-reverse' : ''}`}>
-                      <span className="text-5xl font-bold text-sis-pomegranate/20">
-                        {step.number}
-                      </span>
-                      <h3 className="text-xl font-semibold text-sis-gray-900">
-                        {step.title}
-                      </h3>
-                    </div>
-                    <p className="text-sis-gray-600 max-w-md">
-                      {step.description}
-                    </p>
-                  </div>
+              {/* Icon */}
+              <div className="w-14 h-14 bg-sis-pomegranate/10 rounded-xl
+                              flex items-center justify-center mb-5 mt-2">
+                <step.icon className="w-7 h-7 text-sis-pomegranate" />
+              </div>
+
+              <h3 className="text-xl font-semibold text-sis-gray-900 mb-3">
+                {step.title}
+              </h3>
+              <p className="text-sis-gray-600 leading-relaxed text-sm mb-4">
+                {step.description}
+              </p>
+
+              {/* Time badge */}
+              <span className="inline-flex items-center px-3 py-1 bg-sis-pomegranate/10
+                             text-sis-pomegranate text-xs font-semibold rounded-full">
+                {step.highlight}
+              </span>
+
+              {/* Connector arrow (between cards on desktop) */}
+              {index < steps.length - 1 && (
+                <div className="hidden md:block absolute top-1/2 -right-5 transform -translate-y-1/2 z-10">
+                  <div className="text-sis-gray-300 text-2xl">&rarr;</div>
                 </div>
-
-                {/* Icon circle */}
-                <div className="relative z-10">
-                  <div className="w-20 h-20 bg-white rounded-full shadow-lg 
-                                  border-4 border-sis-pomegranate/20 
-                                  flex items-center justify-center
-                                  group hover:scale-110 transition-transform duration-300">
-                    <step.icon className="w-8 h-8 text-sis-pomegranate" />
-                  </div>
-                </div>
-
-                {/* Spacer for alternating layout */}
-                <div className="flex-1 hidden lg:block" />
-              </motion.div>
-            ))}
-          </div>
+              )}
+            </motion.div>
+          ))}
         </div>
 
         {/* CTA */}
@@ -114,21 +101,19 @@ export default function Steps() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-12"
         >
           <Link
-            href="/products/1"
-            className="inline-flex items-center gap-2 px-8 py-4 
-                       bg-sis-pomegranate
-                       text-white font-medium rounded-xl
+            href="/demo"
+            className="inline-flex items-center gap-2 px-8 py-4
+                       bg-sis-pomegranate text-white font-medium rounded-xl
                        hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-red-700"
           >
-            Se exempelberäkning
-            <Calculator className="w-5 h-5" />
+            Prova nu - helt gratis
+            <MousePointerClick className="w-5 h-5" />
           </Link>
         </motion.div>
       </div>
     </section>
   )
 }
-
