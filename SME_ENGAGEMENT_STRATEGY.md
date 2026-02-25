@@ -1,4 +1,4 @@
-# SME Engagement Strategy: Tre spår för ökat SME-engagemang
+# SME Engagement Strategy: Två spår för ökat SME-engagemang
 
 > Baserat på review av 2030+ Calculator-projektet och input från CEN/CENELEC AG SME-mötet.
 > Mål: Göra projektet betydligt lättare, mer kommunikativt och säljigare för SME-bolag.
@@ -8,25 +8,49 @@
 
 ## Sammanfattning
 
-Projektet har en stark teknisk grund men talar idag **standardiseringens språk** istället för **företagarens språk**. De tre spåren nedan adresserar de tre huvudhinder som identifierats för SME-engagemang: **tidsbrist**, **komplexitet** och **avsaknad av upplevd påverkan**.
+Projektet har en stark teknisk grund men talar idag **standardiseringens språk** istället för **företagarens språk**. De två spåren nedan adresserar de tre huvudhinder som identifierats för SME-engagemang: **tidsbrist**, **komplexitet** och **avsaknad av upplevd påverkan**.
 
 | Spår | Fokus | Adresserar |
 |------|-------|------------|
-| 1. Noll till Nytta | Radikalt förenklad onboarding | Tidsbrist + komplexitet |
-| 2. Visa Värdet | Business cases + säljbar kommunikation | Avsaknad av påverkan + ROI |
-| 3. Mötesplats SME | Kanal- och nätverksstrategi | Räckvidd + tillgänglighet |
+| 1. Noll till Nytta | Enkel väg in + omedelbart synligt värde | Tidsbrist + komplexitet + ROI |
+| 2. Mötesplats SME | Kanal- och nätverksstrategi | Räckvidd + tillgänglighet |
+
+**Grundtanken:** Spår 1 gör att de provar OCH förstår varför. Spår 2 gör att de hittar oss.
 
 ---
 
-## Spår 1: "Noll till Nytta på 10 minuter"
+## Spår 1: "Noll till Nytta" - Från första klick till bevisat värde
+
+### Kärnan
+
+Förenkling och värdebevis är inte två separata saker - de är samma resa sett från SME-ägarens perspektiv. En enkel onboarding som inte omedelbart visar konkret nytta är meningslös. Och ett starkt business case som kräver sex steg för att nå fram tappar alla på vägen.
+
+Det här spåret designar hela resan: **lätt att börja → omedelbart resultat → tydligt affärsvärde → delbart bevis**.
 
 ### Problem idag
-Projektet presenterar sig med ISO-nummer (14067, 14046, 14055, 59004) och tekniska termer som "cradle-to-gate", "funktionell enhet" och "livscykelanalys". En SME-ägare som tillverkar möbler i Tibro ser inte sig själv i det språket.
+
+Projektet presenterar sig med ISO-nummer (14067, 14046, 14055, 59004) och tekniska termer som "cradle-to-gate", "funktionell enhet" och "livscykelanalys". Samtidigt saknas business cases helt. Kommunikationen listar funktioner (8 indikatorer, AI-stöd, ISO-kompatibilitet) men inte vad företagaren tjänar på det i kronor och affärer.
 
 Nuvarande hero-text: *"Digitalisering av hållbarhetsstandarder"*
 En VD för ett SME tänker: *"Jag behöver vinna den offentliga upphandlingen nästa månad"*.
 
-### Föreslagen förändring
+Mötesanteckningarna bekräftar: *"vikten av business cases för att visa på värdet"*.
+
+### Resan i fyra steg
+
+```
+┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+│  LOCKA   │───→│  VISA    │───→│  BEVISA  │───→│  SPRIDA  │
+│          │    │          │    │          │    │          │
+│ Rätt     │    │ Resultat │    │ Affärs-  │    │ Delbart  │
+│ språk +  │    │ på 10    │    │ värde i  │    │ bevis +  │
+│ 0 tröskel│    │ minuter  │    │ kronor   │    │ badge    │
+└──────────┘    └──────────┘    └──────────┘    └──────────┘
+```
+
+---
+
+### Steg 1: LOCKA - Tala företagarens språk
 
 #### A) Skriv om all text från kundens perspektiv
 
@@ -44,7 +68,54 @@ Förslag ny hero-text:
 > **"Dina kunders miljökrav - besvarade på minuter, inte månader"**
 > Skandiform i Tibro sparar 198,000 kr per år. Vad sparar du?
 
-#### B) Branschmallar istället för tom blankett
+#### B) ROI-kalkylator direkt på landningssidan
+
+Innan man ens loggar in - visa vad det är värt:
+
+```
+┌──────────────────────────────────────────┐
+│    Vad kostar det DIG att inte veta?     │
+│                                          │
+│  Antal produkter:        [  3  ]         │
+│  Antal upphandlingar/år: [  5  ]         │
+│  Genomsnittligt ordervärde: [250,000]    │
+│                                          │
+│  ──────────────────────────────────       │
+│  Potentiell förlorad omsättning:         │
+│  1,250,000 kr/år                         │
+│                                          │
+│  Kostnad för 2030+: 24,000 kr/år         │
+│  ROI: 5,108%                             │
+│                                          │
+│  [ Se ditt resultat direkt → ]           │
+└──────────────────────────────────────────┘
+```
+
+#### C) Kundberättelser istället för feature-listor
+
+Byt ut den generiska texten mot berättande format:
+
+> **"Vi förlorade en upphandling värd 400,000 kr för att vi inte kunde visa vår klimatpåverkan. Med 2030+ hade vi haft svaret samma dag."**
+> — Produktionschef, möbeltillverkare, 22 anställda
+
+Skapa 3-5 sådana stories baserade på verkliga scenarion från:
+- Möbelbranschen (Skandiform-exemplet, utvecklat)
+- Livsmedelsbranschen
+- Verkstad/underleverantör till fordon
+
+---
+
+### Steg 2: VISA - Resultat på 10 minuter
+
+#### D) "Prova utan konto" - friktionsfri testupplevelse
+
+Lägg till en knapp: **"Se ditt resultat direkt - inget konto krävs"**
+- Användaren väljer bransch
+- Anger 3 uppgifter: produktnamn, huvudmaterial, ungefärlig vikt
+- Får ett preliminärt resultat direkt
+- Konto skapas först vid export/sparning
+
+#### E) Branschmallar istället för tom blankett
 
 Idag börjar alla användare med en tom produkt. Inför istället förvalda mallar:
 
@@ -58,36 +129,20 @@ Idag börjar alla användare med en tom produkt. Inför istället förvalda mall
 
 Användaren väljer bransch, får en förifylld produkt och justerar bara det som avviker. **Från 30 minuter till 10 minuter.**
 
-#### C) "Prova utan konto" - friktionsfri testupplevelse
-
-Lägg till en knapp: **"Se ditt resultat direkt - inget konto krävs"**
-- Användaren väljer bransch
-- Anger 3 uppgifter: produktnamn, huvudmaterial, ungefärlig vikt
-- Får ett preliminärt resultat direkt
-- Konto skapas först vid export/sparning
-
-#### D) Mobilanpassad dashboard
+#### F) Mobilanpassad dashboard
 
 SME-ägare sitter inte vid skrivbordet. Nuvarande UI är desktop-first. Prioritera:
 - Resultatvy som fungerar i mobilen
 - Push-notis: "Din analys är klar"
 - QR-kod på produkten som länkar till miljödata
 
-### Mätbara effekter
-- Tid till första resultat: 30 min → 10 min
-- Andel som slutför analys: mål +40%
-- Avhopp vid registrering: mål -60%
-
 ---
 
-## Spår 2: "Visa Värdet" - Business cases som säljer
+### Steg 3: BEVISA - Affärsvärde i kronor
 
-### Problem idag
-Projektet saknar konkreta business cases. Mötesanteckningarna bekräftar: *"vikten av business cases för att visa på värdet"*. Nuvarande kommunikation listar funktioner (8 indikatorer, AI-stöd, ISO-kompatibilitet) men inte vad företagaren tjänar på det i kronor och affärer.
+#### G) Tre nivåer av business case som visas i resultatet
 
-### Föreslagen förändring
-
-#### A) Tre nivåer av business case
+När analysen är klar, visa inte bara siffror - visa vad de **betyder för affären**:
 
 **Nivå 1 - Kostnadsbesparingen (den lättaste att förstå)**
 
@@ -121,42 +176,11 @@ Konkreta situationer där 2030+ öppnar dörrar:
 - Företag som redan mäter ligger steget före
 - "Det kostar mer att vänta än att börja"
 
-#### B) Räkna-på-det-själv-kalkylator
+---
 
-Ny komponent på landningssidan:
+### Steg 4: SPRIDA - Delbart bevis som säljer vidare
 
-```
-┌──────────────────────────────────────────┐
-│    Vad kostar det DIG att inte veta?     │
-│                                          │
-│  Antal produkter:        [  3  ]         │
-│  Antal upphandlingar/år: [  5  ]         │
-│  Genomsnittligt ordervärde: [250,000]    │
-│                                          │
-│  ──────────────────────────────────       │
-│  Potentiell förlorad omsättning:         │
-│  1,250,000 kr/år                         │
-│                                          │
-│  Kostnad för 2030+: 24,000 kr/år         │
-│  ROI: 5,108%                             │
-│                                          │
-│  [ Starta din analys → ]                 │
-└──────────────────────────────────────────┘
-```
-
-#### C) Kundberättelser - inte testimonials, utan mini-cases
-
-Byt ut den generiska Skandiform-texten mot berättande format:
-
-> **"Vi förlorade en upphandling värd 400,000 kr för att vi inte kunde visa vår klimatpåverkan. Med 2030+ hade vi haft svaret samma dag."**
-> — Produktionschef, möbeltillverkare, 22 anställda
-
-Skapa 3-5 sådana stories baserade på verkliga scenarion från:
-- Möbelbranschen (Skandiform-exemplet, utvecklat)
-- Livsmedelsbranschen
-- Verkstad/underleverantör till fordon
-
-#### D) "Hållbarhetsbevis" - delbart resultat
+#### H) "Hållbarhetsbevis" - resultatet blir marknadsföring
 
 Efter genomförd analys genereras ett visuellt kort/badge:
 
@@ -184,16 +208,20 @@ Detta kort kan:
 - Delas i sociala medier
 - Skrivas ut och sättas på produkten
 
-**Nyckelinsikt:** SME:s engagerar sig inte i standardisering för standardiseringens skull. De engagerar sig om det hjälper dem vinna affärer.
+**Varje delning blir marknadsföring.** När Skandiform bifogar sitt hållbarhetsbevis i en offert ser mottagaren SIS 2030+ Calculator. Viral loop utan marknadsbudget.
 
-### Mätbara effekter
+**Nyckelinsikt:** SME:s engagerar sig inte i standardisering för standardiseringens skull. De engagerar sig om det hjälper dem vinna affärer. Hela spår 1 är designat kring den insikten - från första intryck till delbart resultat.
+
+### Mätbara effekter - Spår 1
+- Tid till första resultat: 30 min → 10 min
+- Avhopp vid registrering: mål -60%
+- Andel som slutför analys: mål +40%
 - Konvertering från besökare till användare: mål +50%
 - Andel som delar sitt hållbarhetsbevis: mål 30%
-- Omsättning per kund (genom premium-export): mål +25%
 
 ---
 
-## Spår 3: "Mötesplats SME" - Gå dit företagen redan är
+## Spår 2: "Mötesplats SME" - Gå dit företagen redan är
 
 ### Problem idag
 Standardiseringsvärlden väntar på att SME ska komma till dem. Mötesanteckningarna bekräftar: Guide 17-piloterna har inte genomförts, material från CCMC är framtaget men inte använt, och SME-representanterna i TK:erna lyser med sin frånvaro.
@@ -214,7 +242,7 @@ SME-bolag litar på sin branschorganisation, inte på standardiseringsorgan. Gå
 | Bygg | Byggföretagen | Koppling till Boverkets klimatdeklaration |
 | Generellt | Företagarna | "Verktygslåda för hållbar SME" |
 
-**Konkret:** Erbjud varje branschorganisation 10 gratis licenser för ett pilotprogram. Dokumentera resultaten som business cases (spår 2).
+**Konkret:** Erbjud varje branschorganisation 10 gratis licenser för ett pilotprogram. Dokumentera resultaten som business cases (spår 1, steg 3).
 
 #### B) Freemium-modell - första produkten gratis
 
@@ -263,7 +291,7 @@ Mötesanteckningarna nämner DIN:s "monitoring tool" och nationella "SME WG". Un
 - Kan vi bygga en svensk SME-arbetsgrupp som testar och ger feedback?
 - Erbjud att dela SIS-pilotresultat tillbaka till CEN/CENELEC som use case
 
-### Mätbara effekter
+### Mätbara effekter - Spår 2
 - Nya SME-registreringar via branschorganisationer: mål 100 första året
 - Konvertering gratis → betalande: mål 15%
 - Aktiva användare efter 6 månader: mål 40% retention
@@ -274,22 +302,22 @@ Mötesanteckningarna nämner DIN:s "monitoring tool" och nationella "SME WG". Un
 
 ### Fas 1: Nu → slutet av april (Action plan till PC-mötet)
 
-| Vecka | Aktivitet | Spår |
-|-------|----------|------|
-| V10-11 | Skriv om all kundvänd text till affärsspråk | 1 |
-| V11-12 | Bygg 3 branschmallar (möbel, livsmedel, verkstad) | 1 |
-| V12-13 | Skapa ROI-kalkylator för landningssidan | 2 |
-| V13-14 | Ta fram 3 mini-business-cases | 2 |
-| V14-15 | Design av hållbarhetsbeviset | 2 |
-| V15-16 | Kontakta TMF + Livsmedelsföretagen för pilotsamarbete | 3 |
-| V16-17 | Sätt freemium-prismodell | 3 |
-| V17 | Sammanställ action plan för PC-mötet | Alla |
+| Vecka | Aktivitet | Spår | Steg |
+|-------|----------|------|------|
+| V10-11 | Skriv om all kundvänd text till affärsspråk | 1 | Locka |
+| V11-12 | Bygg ROI-kalkylator + 3 mini-business-cases | 1 | Locka + Bevisa |
+| V12-13 | Bygg 3 branschmallar (möbel, livsmedel, verkstad) | 1 | Visa |
+| V13-14 | Design + implementera hållbarhetsbeviset | 1 | Sprida |
+| V14-15 | Implementera "prova utan konto"-flöde | 1 | Visa |
+| V15-16 | Kontakta TMF + Livsmedelsföretagen för pilotsamarbete | 2 | - |
+| V16-17 | Sätt freemium-prismodell | 2 | - |
+| V17 | Sammanställ action plan för PC-mötet | Alla | - |
 
 ### Fas 2: Maj → november (Byggfas + piloter)
 
-- Implementera "prova utan konto"-flöde
 - Kör pilotprogram med 10-15 SME
 - Dokumentera resultat som business cases
+- Mobilanpassa dashboard
 - Förbereda presentation för "Meeting Standards"
 
 ### Fas 3: November → Q1 2027 (Skalning)
@@ -306,14 +334,14 @@ Mötesanteckningarna nämner DIN:s "monitoring tool" och nationella "SME WG". Un
 | AG SME-beslut/observation | Hur 2030+ adresserar det |
 |--------------------------|-------------------------|
 | Ny action plan behövs (april) | Detta dokument kan vara SIS-bidraget |
-| Business cases efterfrågas | Spår 2 levererar konkreta SME-cases |
+| Business cases efterfrågas | Spår 1 steg 3: business cases i tre nivåer |
 | Guide 17-piloter ej genomförda | 2030+ kan bli den svenska piloten |
-| Online-deltagande viktigt | Spår 3E: allt digital-first |
-| SME-kontaktperson föreslås | Spår 3D: konkret rollbeskrivning |
-| Avgifter hindrar deltagande | Spår 3B: freemium-modell |
-| DIN monitoring tool intressant | Spår 3F: utred integration |
+| Online-deltagande viktigt | Spår 2E: allt digital-first |
+| SME-kontaktperson föreslås | Spår 2D: konkret rollbeskrivning |
+| Avgifter hindrar deltagande | Spår 2B: freemium-modell |
+| DIN monitoring tool intressant | Spår 2F: utred integration |
 | SFS har 97% SME | Validerar att marknaden finns |
-| SIS värdeerbjudande + prismodell | Spår 2+3 stöttar detta arbete |
+| SIS värdeerbjudande + prismodell | Spår 1+2 stöttar detta arbete |
 
 ---
 
@@ -327,4 +355,4 @@ Skiftet handlar om att gå från:
 - "ISO 14067-kompatibel" → **"Godkänd för offentlig upphandling"**
 - "Livscykelanalys" → **"Miljödeklaration - klar på 10 minuter"**
 
-De tre spåren hänger ihop: **Spår 1** gör att de provar. **Spår 2** gör att de förstår varför. **Spår 3** gör att de hittar oss.
+**Spår 1** gör att de provar och förstår varför. **Spår 2** gör att de hittar oss.
