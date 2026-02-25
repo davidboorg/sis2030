@@ -13,7 +13,13 @@ BASE_INDICATORS = ["co2e_kg", "water_l", "energy_mj", "land_m2a", "acid_mol_hplu
 FACTORS_PATH = Path(__file__).resolve().parent.parent / "packages" / "shared" / "factors.json"
 
 with FACTORS_PATH.open(encoding="utf-8") as fh:
-    FACTORS: Dict[str, Dict[str, float]] = json.load(fh)
+    _RAW_FACTORS = json.load(fh)
+
+# Flatten nested structure: {"materials": {"steel": {"indicators": {...}}}} → {"steel": {...}}
+FACTORS: Dict[str, Dict[str, float]] = {}
+for _category in ("materials", "processes", "transport"):
+    for _ref, _entry in _RAW_FACTORS.get(_category, {}).items():
+        FACTORS[_ref] = _entry.get("indicators", _entry)
 
 
 def _factor(ref: str) -> Dict[str, float]:

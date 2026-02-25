@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends
+from fastapi.responses import Response
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
 from pydantic import BaseModel
@@ -612,6 +613,219 @@ def create_from_template(
 
     db.commit()
     return {"product_id": product.id, "template": template_id, "name": product.name}
+
+
+# ── Demo Endpoint (no auth) ────────────────────────────────────────
+
+
+@app.post("/demo/{template_id}")
+def demo_calculate(template_id: str, db: Session = Depends(get_session)):
+    """Create a temporary product from template, run calculation, return results.
+    No authentication required - this is the 'try without account' flow."""
+    template = INDUSTRY_TEMPLATES.get(template_id)
+    if not template:
+        raise HTTPException(status_code=404, detail="Template not found")
+
+    # Use org_id=1 (demo org) for demo products
+    product = Product(
+        org_id=1,
+        name=f"[Demo] {template['example_product']}",
+        description=f"Demo-analys från branschmall: {template['name']}",
+        unit="st",
+        iso_standard="ISO 14040, ISO 14067, ISO 14046, ISO 59004",
+    )
+    db.add(product)
+    db.commit()
+    db.refresh(product)
+
+    for comp_data in template["components"]:
+        comp = Component(
+            product_id=product.id,
+            name=comp_data["name"],
+            quantity=comp_data["quantity"],
+            unit=comp_data["unit"],
+        )
+        db.add(comp)
+        db.commit()
+        db.refresh(comp)
+
+        for mat in comp_data.get("materials", []):
+            db.add(
+                MaterialItem(
+                    component_id=comp.id,
+                    dataset_ref=mat["dataset_ref"],
+                    mass_kg=mat["mass_kg"],
+                    recycled_content_pct=mat.get("recycled_content_pct", 0),
+                    overrides_json="{}",
+                )
+            )
+        for proc in comp_data.get("processes", []):
+            db.add(
+                ProcessItem(
+                    component_id=comp.id,
+                    dataset_ref=proc["dataset_ref"],
+                    energy_kwh=proc["energy_kwh"],
+                    parameters_json="{}",
+                )
+            )
+        for trans in comp_data.get("transports", []):
+            db.add(
+                TransportItem(
+                    component_id=comp.id,
+                    mode=trans["mode"],
+                    distance_km=trans["distance_km"],
+                    origin_iso=trans["origin_iso"],
+                    dest_iso=trans["dest_iso"],
+                    dataset_ref=f"{trans['mode']}_freight",
+                )
+            )
+
+    db.commit()
+
+    # Run calculation
+    from calculator import calculate_indicators
+
+    results = calculate_indicators(db, product.id, "v1", "iso14040-2024")
+
+    # Store run for potential follow-up
+    demo_user = db.exec(select(User).where(User.email == "demo@skandiform.example")).first()
+    db_run = Run(
+        product_id=product.id,
+        dataset_version="v1",
+        method_version="iso14040-2024",
+        status="completed",
+        created_by=demo_user.id if demo_user else 1,
+        iso_standards=json.dumps(
+            ["ISO 14040", "ISO 14067", "ISO 14046", "ISO 14055", "ISO 59004"]
+        ),
+    )
+    db.add(db_run)
+    db.commit()
+    db.refresh(db_run)
+
+    db_result = RunResult(
+        run_id=db_run.id,
+        indicators_json=json.dumps(results["indicators"]),
+        hotspots_json=json.dumps(results["hotspots"]),
+        assumptions_json=json.dumps(results["assumptions"]),
+        recommendations_json=json.dumps(results.get("recommendations", [])),
+        ai_notes_json=json.dumps(results.get("ai_suggestions", [])),
+    )
+    db.add(db_result)
+    db.commit()
+
+    return {
+        "product_id": product.id,
+        "product_name": product.name,
+        "run_id": db_run.id,
+        "template": template_id,
+        "template_name": template["name"],
+        "indicators": results["indicators"],
+        "hotspots": results["hotspots"],
+        "assumptions": results["assumptions"],
+        "recommendations": results.get("recommendations", []),
+        "ai_suggestions": results.get("ai_suggestions", []),
+        "components": template["components"],
+    }
+
+
+# ── Badge Generation ───────────────────────────────────────────────
+
+
+@app.get("/badge/{run_id}")
+def get_badge_svg(run_id: int, db: Session = Depends(get_session)):
+    """Generate a shareable sustainability badge as SVG"""
+    run = db.get(Run, run_id)
+    if not run:
+        raise HTTPException(status_code=404, detail="Run not found")
+    result = db.exec(select(RunResult).where(RunResult.run_id == run_id)).first()
+    if not result:
+        raise HTTPException(status_code=404, detail="Result not found")
+    product = db.get(Product, run.product_id)
+
+    indicators = json.loads(result.indicators_json)
+    co2e = indicators.get("co2e_kg", 0)
+    water = indicators.get("water_l", 0)
+    circularity = indicators.get("circularity_pct", 0)
+    energy = indicators.get("energy_mj", 0)
+
+    product_name = product.name.replace("[Demo] ", "") if product else "Produkt"
+    org = db.get(Organisation, product.org_id) if product else None
+    org_name = org.name if org else ""
+    verification_id = f"SIS-2030-{str(run_id).zfill(5)}"
+    calc_date = run.created_at.strftime("%Y-%m-%d")
+
+    svg = f"""<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="520" viewBox="0 0 400 520">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F32735;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="520" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Header -->
+  <rect width="400" height="80" rx="16" fill="url(#headerGrad)"/>
+  <rect y="64" width="400" height="16" fill="url(#headerGrad)"/>
+
+  <!-- Verified badge -->
+  <rect x="120" y="8" width="160" height="24" rx="12" fill="white" fill-opacity="0.2"/>
+  <text x="200" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="white">Verifierad milj\u00f6analys</text>
+
+  <!-- Product name -->
+  <text x="200" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="white">{product_name}</text>
+  <text x="200" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="white" fill-opacity="0.8">{org_name} \u00b7 {calc_date}</text>
+
+  <!-- Indicators -->
+  <!-- CO2e -->
+  <rect x="24" y="100" width="168" height="80" rx="12" fill="#fef2f2"/>
+  <text x="108" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#991b1b" text-transform="uppercase" letter-spacing="0.5">Klimatp\u00e5verkan</text>
+  <text x="108" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="700" fill="#0f172a">{co2e:.1f}</text>
+  <text x="108" y="172" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#64748b">kg CO\u2082e</text>
+
+  <!-- Water -->
+  <rect x="208" y="100" width="168" height="80" rx="12" fill="#eff6ff"/>
+  <text x="292" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1e40af" text-transform="uppercase" letter-spacing="0.5">Vattenf\u00f6rbrukning</text>
+  <text x="292" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="700" fill="#0f172a">{water:.0f}</text>
+  <text x="292" y="172" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#64748b">liter</text>
+
+  <!-- Energy -->
+  <rect x="24" y="196" width="168" height="80" rx="12" fill="#fefce8"/>
+  <text x="108" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#854d0e" text-transform="uppercase" letter-spacing="0.5">Energianv\u00e4ndning</text>
+  <text x="108" y="251" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="700" fill="#0f172a">{energy:.1f}</text>
+  <text x="108" y="268" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#64748b">MJ</text>
+
+  <!-- Circularity -->
+  <rect x="208" y="196" width="168" height="80" rx="12" fill="#f0fdf4"/>
+  <text x="292" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#166534" text-transform="uppercase" letter-spacing="0.5">Cirkularitet</text>
+  <text x="292" y="251" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="700" fill="#0f172a">{circularity:.0f}%</text>
+  <text x="292" y="268" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#64748b">\u00e5tervunnet</text>
+
+  <!-- Divider -->
+  <line x1="40" y1="300" x2="360" y2="300" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Standards -->
+  <text x="200" y="328" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Ber\u00e4knad enligt</text>
+  <text x="200" y="348" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#475569">ISO 14067 \u00b7 ISO 14046 \u00b7 ISO 59004</text>
+
+  <!-- Powered by -->
+  <rect x="100" y="370" width="200" height="36" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="112" y="378" width="20" height="20" rx="4" fill="#F32735"/>
+  <text x="122" y="392" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="white">2+</text>
+  <text x="210" y="393" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#0f172a">SIS 2030+ Calculator</text>
+
+  <!-- Verification -->
+  <text x="200" y="436" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Verifierings-ID</text>
+  <text x="200" y="456" text-anchor="middle" font-family="monospace" font-size="14" font-weight="600" fill="#334155">{verification_id}</text>
+
+  <!-- Bottom link -->
+  <text x="200" y="496" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Skapa din egen analys p\u00e5 2030calculator.se</text>
+</svg>"""
+
+    return Response(content=svg, media_type="image/svg+xml")
 
 
 # ── AI Endpoints ───────────────────────────────────────────────────
