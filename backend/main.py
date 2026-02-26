@@ -27,7 +27,7 @@ from ai_service import (
 
 try:
     from weasyprint import HTML
-except OSError:
+except (OSError, ImportError):
     print("Warning: WeasyPrint not available. PDF export will be disabled.")
     HTML = None
 
