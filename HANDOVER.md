@@ -1,20 +1,20 @@
-# 2030+ Calculator - Handover Documentation
+# TR/ACE - Handover Documentation
 
-## 🎯 Översikt
-Detta är en LCA-kalkylator för SME-tillverkare som automatiskt beräknar klimatpåverkan med hjälp av **Climatiq API** och erbjuder AI-assisterad materialinmatning via **OpenAI**.
+## Översikt
+TR/ACE är en screening-LCA för SME-tillverkare som automatiskt beräknar klimatpåverkan med hjälp av **Climatiq API** och erbjuder AI-assisterad materialinmatning via **OpenAI**.
 
 **Demo-produkt:** Kontorsstol Ergo Pro (realistiskt exempel för SME)
 
 ---
 
-## 🚀 Snabbstart
+## Snabbstart
 
 ### 1. Starta Servrar
 
 **Backend (port 8002):**
 ```bash
 cd backend
-export CLIMATIQ_API_KEY=2JGXVZ7V3D04ZCH3167W9K97BM
+export CLIMATIQ_API_KEY=your_key_here
 venv/bin/uvicorn main:app --host 0.0.0.0 --port 8002 --reload
 ```
 
@@ -33,7 +33,7 @@ Navigera till: **http://localhost:3031**
 
 ---
 
-## 📊 Demo-Flöde (Kontorsstol)
+## Demo-Flöde (Kontorsstol)
 
 ### Steg 1: Visa Befintlig Produkt
 1. Klicka på "Kontorsstol Ergo Pro" i dashboarden
@@ -55,22 +55,22 @@ Navigera till: **http://localhost:3031**
 
 ---
 
-## 🔑 API-Nycklar
+## API-Nycklar
 
 ### Climatiq API
-- **Nyckel:** `2JGXVZ7V3D04ZCH3167W9K97BM`
 - **Plats:** `backend/.env.local`
 - **Användning:** Automatisk CO₂e-beräkning för material
 
 ### OpenAI API
-- **Nyckel:** `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`
 - **Modell:** `gpt-4o-mini`
 - **Plats:** `backend/.env.local`
 - **Användning:** BOM-tolkning och materialförslag
 
+**OBS:** API-nycklar ska aldrig committas till Git!
+
 ---
 
-## 🛠️ Teknisk Arkitektur
+## Teknisk Arkitektur
 
 ### Backend (FastAPI)
 - **Port:** 8002
@@ -89,7 +89,7 @@ Navigera till: **http://localhost:3031**
 
 ---
 
-## 📝 Vanliga Material (Climatiq-kompatibla)
+## Vanliga Material (Climatiq-kompatibla)
 
 För bästa resultat, använd dessa materialnamn:
 
@@ -115,7 +115,7 @@ För bästa resultat, använd dessa materialnamn:
 
 ---
 
-## 🐛 Felsökning
+## Felsökning
 
 ### Problem: "Invalid credentials"
 **Lösning:** Kontrollera att databasen är seedat:
@@ -130,7 +130,7 @@ venv/bin/python seed.py
 - Rad 47 ska innehålla `http://localhost:3031`
 
 ### Problem: "Climatiq API error"
-**Lösning:** 
+**Lösning:**
 1. Verifiera API-nyckel i `backend/.env.local`
 2. Testa med: `cd backend && venv/bin/python verify_climatiq.py`
 
@@ -142,9 +142,9 @@ venv/bin/python seed.py
 
 ---
 
-## 📦 Deployment Tips
+## Deployment Tips
 
-### För SIS-demon (1 dec 2025)
+### För Demo
 1. **Kör seed.py** innan demon för att återställa data
 2. **Testa flödet** 5 min innan presentation
 3. **Ha backup** - visa Python-skriptet `demo_flow.py` om UI krånglar
@@ -157,7 +157,7 @@ venv/bin/python seed.py
 
 ---
 
-## 🎓 För SME-Användare
+## För SME-Användare
 
 ### Vad Gör Tjänsten?
 Beräknar automatiskt klimatpåverkan (CO₂e) för dina produkter enligt ISO 14067.
@@ -174,18 +174,12 @@ Beräknar automatiskt klimatpåverkan (CO₂e) för dina produkter enligt ISO 14
 
 ---
 
-## 📞 Support
+## Support
 
 **Tekniska frågor:**
-- Dokumentation: `walkthrough.md`
 - Verifieringsskript: `backend/verify_*.py`
 - Demo-skript: `backend/demo_flow.py`
 
 **Nästa Steg:**
-1. Läs `walkthrough.md` för fullständig genomgång
-2. Kör `demo_flow.py` för att verifiera backend
-3. Testa UI-flödet med demo-stolen
-
----
-
-**Lycka till med demon! 🚀**
+1. Kör `demo_flow.py` för att verifiera backend
+2. Testa UI-flödet med demo-stolen

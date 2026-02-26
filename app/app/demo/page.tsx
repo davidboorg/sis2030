@@ -18,27 +18,27 @@ type Template = {
 const templates: Template[] = [
   {
     id: 'furniture',
-    name: 'M\u00f6bel',
-    icon: '\ud83e\ude91',
+    name: 'Möbel',
+    icon: '🪑',
     example: 'Kontorsstol',
-    materials: ['St\u00e5l', 'Skum', 'Textil', 'Montering'],
-    context: 'Tibro, Tran\u00e5s, Lammhult',
+    materials: ['Stål', 'Skum', 'Textil', 'Montering'],
+    context: 'Tibro, Tranås, Lammhult',
   },
   {
     id: 'food',
     name: 'Livsmedel',
-    icon: '\ud83d\udce6',
-    example: 'F\u00f6rpackat livsmedel',
+    icon: '📦',
+    example: 'Förpackat livsmedel',
     materials: ['Kartong', 'Plast', 'Pall', 'Distribution'],
-    context: 'F\u00f6rpackning och logistik',
+    context: 'Förpackning och logistik',
   },
   {
     id: 'workshop',
     name: 'Verkstad',
-    icon: '\u2699\ufe0f',
+    icon: '⚙️',
     example: 'CNC-bearbetad detalj',
-    materials: ['St\u00e5l', 'CNC', 'Ytbehandling'],
-    context: 'Underleverant\u00f6r fordon/industri',
+    materials: ['Stål', 'CNC', 'Ytbehandling'],
+    context: 'Underleverantör fordon/industri',
   },
 ]
 
@@ -79,12 +79,12 @@ export default function DemoPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       })
-      if (!response.ok) throw new Error('Ber\u00e4kningen misslyckades')
+      if (!response.ok) throw new Error('Beräkningen misslyckades')
       const data: DemoResult = await response.json()
       setResult(data)
       setStep('result')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'N\u00e5got gick fel')
+      setError(err instanceof Error ? err.message : 'Något gick fel')
       setStep('choose')
     }
   }
@@ -96,18 +96,18 @@ export default function DemoPage() {
   }
 
   return (
-    <main className="min-h-screen bg-trace-void text-trace-parchment">
+    <main className="min-h-screen bg-trace-bg text-trace-text">
       {/* Header */}
       <header className="border-b border-trace-border">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="font-display text-xl font-light tracking-tight">
-            TR<span className="text-trace-gold italic">/</span>ACE
+            TR<span className="text-sis-pomegranate italic">/</span>ACE
           </Link>
-          <div className="font-mono text-[10px] tracking-[0.15em] text-trace-parchment/50 uppercase">
+          <div className="font-mono text-[10px] tracking-[0.15em] text-trace-text-muted uppercase">
             {step === 'pain' && 'Steg 1 av 4'}
             {step === 'roi' && 'Steg 2 av 4'}
             {step === 'choose' && 'Steg 3 av 4'}
-            {step === 'loading' && 'Ber\u00e4knar...'}
+            {step === 'loading' && 'Beräknar...'}
             {step === 'result' && 'Resultat'}
           </div>
         </div>
@@ -128,54 +128,55 @@ export default function DemoPage() {
               className="max-w-3xl mx-auto"
             >
               {/* Eyebrow */}
-              <div className="font-mono text-[10px] tracking-[0.2em] text-trace-gold uppercase mb-6 flex items-center gap-3">
-                <span className="w-6 h-px bg-trace-gold" />
-                Innan vi b\u00f6rjar
+              <div className="font-mono text-[10px] tracking-[0.2em] text-sis-pomegranate uppercase mb-6 flex items-center gap-3">
+                <span className="w-6 h-px bg-sis-pomegranate" />
+                Innan vi börjar
               </div>
 
               {/* Main stat */}
               <h1 className="font-display text-5xl md:text-6xl font-light tracking-tight mb-8">
-                <span className="text-trace-gold">847 Mkr</span><span className="text-trace-parchment/30">.</span>
+                <span className="text-sis-pomegranate">847 Mkr</span><span className="text-trace-text-muted">.</span>
               </h1>
-              <p className="text-xl text-trace-parchment/70 mb-8 leading-relaxed max-w-xl">
-                S\u00e5 mycket f\u00f6rlorade svenska SME:er i offentliga upphandlingar f\u00f6rra \u00e5ret
-                p\u00e5 grund av <span className="text-trace-parchment">saknad eller otillr\u00e4cklig milj\u00f6data</span>.
+              <p className="text-xl text-trace-text-secondary mb-8 leading-relaxed max-w-xl">
+                Så mycket förlorade svenska SME:er i offentliga upphandlingar förra året
+                på grund av <span className="text-trace-text">saknad eller otillräcklig miljödata</span>.
               </p>
 
               {/* Pain points */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-trace-border mb-12">
                 <div className="bg-trace-surface p-6">
-                  <div className="font-mono text-3xl text-trace-parchment mb-2">68%</div>
-                  <p className="font-mono text-xs text-trace-parchment/50">
-                    av ink\u00f6pare kr\u00e4ver nu milj\u00f6deklaration i offertf\u00f6rfr\u00e5gan
+                  <div className="font-mono text-3xl text-trace-text mb-2">68%</div>
+                  <p className="font-mono text-xs text-trace-text-muted">
+                    av inköpare kräver nu miljödeklaration i offertförfrågan
                   </p>
                 </div>
                 <div className="bg-trace-surface p-6">
-                  <div className="font-mono text-3xl text-trace-parchment mb-2">6 v</div>
-                  <p className="font-mono text-xs text-trace-parchment/50">
-                    tar en traditionell LCA-konsult. Upphandlingen st\u00e4nger om 2.
+                  <div className="font-mono text-3xl text-trace-text mb-2">6 v</div>
+                  <p className="font-mono text-xs text-trace-text-muted">
+                    tar en traditionell LCA-konsult. Upphandlingen stänger om 2.
                   </p>
                 </div>
                 <div className="bg-trace-surface p-6">
-                  <div className="font-mono text-3xl text-trace-parchment mb-2">200k</div>
-                  <p className="font-mono text-xs text-trace-parchment/50">
-                    kronor kostar en LCA. Offerten \u00e4r v\u00e4rd 400k.
+                  <div className="font-mono text-3xl text-trace-text mb-2">200k</div>
+                  <p className="font-mono text-xs text-trace-text-muted">
+                    kronor kostar en LCA. Offerten är värd 400k.
                   </p>
                 </div>
               </div>
 
               {/* CTA */}
               <div className="border-t border-trace-border pt-8">
-                <p className="text-trace-parchment/50 mb-6">
-                  TR/ACE l\u00f6ser det p\u00e5 10 minuter. L\u00e5t oss visa vad det betyder f\u00f6r dig.
+                <p className="text-trace-text-muted mb-6">
+                  TR/ACE löser det på 10 minuter. Låt oss visa vad det betyder för dig.
                 </p>
                 <button
                   onClick={() => setStep('roi')}
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-trace-parchment text-trace-void
-                             font-mono text-sm tracking-wide uppercase hover:bg-trace-gold transition-colors"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-sis-pomegranate text-white
+                             font-mono text-sm tracking-wide uppercase hover:bg-red-600 transition-colors
+                             border border-sis-pomegranate"
                 >
-                  Ber\u00e4kna min risk
-                  <span>\u2192</span>
+                  Beräkna min risk
+                  <span>→</span>
                 </button>
               </div>
             </motion.div>
@@ -192,24 +193,24 @@ export default function DemoPage() {
               exit={{ opacity: 0, y: -20 }}
               className="max-w-3xl mx-auto"
             >
-              <div className="font-mono text-[10px] tracking-[0.2em] text-trace-gold uppercase mb-6 flex items-center gap-3">
-                <span className="w-6 h-px bg-trace-gold" />
+              <div className="font-mono text-[10px] tracking-[0.2em] text-sis-pomegranate uppercase mb-6 flex items-center gap-3">
+                <span className="w-6 h-px bg-sis-pomegranate" />
                 ROI-kalkylator
               </div>
 
               <h2 className="font-display text-4xl font-light tracking-tight mb-4">
-                Vad riskerar du<span className="text-trace-gold">?</span>
+                Vad riskerar du<span className="text-sis-pomegranate">?</span>
               </h2>
-              <p className="text-trace-parchment/60 mb-10">
-                Tv\u00e5 snabba fr\u00e5gor. Sedan visar vi vad saknad milj\u00f6data kan kosta dig.
+              <p className="text-trace-text-secondary mb-10">
+                Två snabba frågor. Sedan visar vi vad saknad miljödata kan kosta dig.
               </p>
 
               {/* Calculator inputs */}
               <div className="space-y-8 mb-12">
                 {/* Revenue */}
                 <div className="border border-trace-border bg-trace-surface p-6">
-                  <label className="font-mono text-[10px] tracking-[0.15em] text-trace-parchment/50 uppercase block mb-4">
-                    Ungef\u00e4rlig \u00e5rsoms\u00e4ttning (MSEK)
+                  <label className="font-mono text-[10px] tracking-[0.15em] text-trace-text-muted uppercase block mb-4">
+                    Ungefärlig årsomsättning (MSEK)
                   </label>
                   <div className="flex items-center gap-6">
                     <input
@@ -220,19 +221,19 @@ export default function DemoPage() {
                       onChange={(e) => setRevenue(Number(e.target.value))}
                       className="flex-1 h-1 bg-trace-border rounded-none appearance-none cursor-pointer
                                  [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4
-                                 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-trace-gold
+                                 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-sis-pomegranate
                                  [&::-webkit-slider-thumb]:cursor-pointer"
                     />
-                    <div className="font-mono text-2xl text-trace-parchment w-20 text-right">
-                      {revenue} <span className="text-sm text-trace-parchment/50">Mkr</span>
+                    <div className="font-mono text-2xl text-trace-text w-20 text-right">
+                      {revenue} <span className="text-sm text-trace-text-muted">Mkr</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Tender share */}
                 <div className="border border-trace-border bg-trace-surface p-6">
-                  <label className="font-mono text-[10px] tracking-[0.15em] text-trace-parchment/50 uppercase block mb-4">
-                    Andel som kommer fr\u00e5n upphandlingar/aff\u00e4rer med milj\u00f6krav (%)
+                  <label className="font-mono text-[10px] tracking-[0.15em] text-trace-text-muted uppercase block mb-4">
+                    Andel som kommer från upphandlingar/affärer med miljökrav (%)
                   </label>
                   <div className="flex items-center gap-6">
                     <input
@@ -243,32 +244,32 @@ export default function DemoPage() {
                       onChange={(e) => setTenderShare(Number(e.target.value))}
                       className="flex-1 h-1 bg-trace-border rounded-none appearance-none cursor-pointer
                                  [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4
-                                 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-trace-gold
+                                 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-sis-pomegranate
                                  [&::-webkit-slider-thumb]:cursor-pointer"
                     />
-                    <div className="font-mono text-2xl text-trace-parchment w-20 text-right">
-                      {tenderShare}<span className="text-sm text-trace-parchment/50">%</span>
+                    <div className="font-mono text-2xl text-trace-text w-20 text-right">
+                      {tenderShare}<span className="text-sm text-trace-text-muted">%</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Result */}
-              <div className="border border-trace-gold bg-trace-surface-2 p-8 mb-8">
-                <div className="font-mono text-[10px] tracking-[0.15em] text-trace-gold uppercase mb-4">
-                  Din \u00e5rliga risk
+              <div className="border border-sis-pomegranate bg-trace-surface-2 p-8 mb-8">
+                <div className="font-mono text-[10px] tracking-[0.15em] text-sis-pomegranate uppercase mb-4">
+                  Din årliga risk
                 </div>
-                <div className="font-display text-5xl font-light text-trace-parchment mb-4">
-                  {riskAmount.toLocaleString('sv-SE')} <span className="text-2xl text-trace-parchment/50">tkr</span>
+                <div className="font-display text-5xl font-light text-trace-text mb-4">
+                  {riskAmount.toLocaleString('sv-SE')} <span className="text-2xl text-trace-text-muted">tkr</span>
                 </div>
-                <p className="text-sm text-trace-parchment/60 mb-6">
-                  Det \u00e4r vad du riskerar att f\u00f6rlora varje \u00e5r p\u00e5 grund av saknad milj\u00f6data.
-                  TR/ACE kostar <span className="text-trace-parchment">24 000 kr/\u00e5r</span>.
+                <p className="text-sm text-trace-text-secondary mb-6">
+                  Det är vad du riskerar att förlora varje år på grund av saknad miljödata.
+                  TR/ACE kostar <span className="text-trace-text">24 000 kr/år</span>.
                 </p>
                 <div className="font-mono text-sm">
-                  <span className="text-trace-verified">ROI: {Math.round(riskAmount / 24)}x</span>
-                  <span className="text-trace-parchment/40 ml-3">|</span>
-                  <span className="text-trace-parchment/60 ml-3">Payback: {Math.round(24000 / (riskAmount * 10))} dagar</span>
+                  <span className="text-verified">ROI: {Math.round(riskAmount / 24)}x</span>
+                  <span className="text-trace-text-muted ml-3">|</span>
+                  <span className="text-trace-text-secondary ml-3">Payback: {Math.round(24000 / (riskAmount * 10))} dagar</span>
                 </div>
               </div>
 
@@ -276,17 +277,18 @@ export default function DemoPage() {
               <div className="flex items-center justify-between">
                 <button
                   onClick={() => setStep('pain')}
-                  className="font-mono text-sm text-trace-parchment/50 hover:text-trace-parchment transition-colors"
+                  className="font-mono text-sm text-trace-text-muted hover:text-trace-text transition-colors"
                 >
-                  \u2190 Tillbaka
+                  ← Tillbaka
                 </button>
                 <button
                   onClick={() => setStep('choose')}
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-trace-parchment text-trace-void
-                             font-mono text-sm tracking-wide uppercase hover:bg-trace-gold transition-colors"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-sis-pomegranate text-white
+                             font-mono text-sm tracking-wide uppercase hover:bg-red-600 transition-colors
+                             border border-sis-pomegranate"
                 >
                   Se hur det fungerar
-                  <span>\u2192</span>
+                  <span>→</span>
                 </button>
               </div>
             </motion.div>
@@ -303,21 +305,21 @@ export default function DemoPage() {
               exit={{ opacity: 0, y: -20 }}
             >
               <div className="text-center max-w-2xl mx-auto mb-12">
-                <div className="font-mono text-[10px] tracking-[0.2em] text-trace-gold uppercase mb-6 flex items-center justify-center gap-3">
-                  <span className="w-6 h-px bg-trace-gold" />
-                  V\u00e4lj din bransch
-                  <span className="w-6 h-px bg-trace-gold" />
+                <div className="font-mono text-[10px] tracking-[0.2em] text-sis-pomegranate uppercase mb-6 flex items-center justify-center gap-3">
+                  <span className="w-6 h-px bg-sis-pomegranate" />
+                  Välj din bransch
+                  <span className="w-6 h-px bg-sis-pomegranate" />
                 </div>
                 <h2 className="font-display text-4xl font-light tracking-tight mb-4">
-                  Vilken typ av produkt tillverkar du<span className="text-trace-gold">?</span>
+                  Vilken typ av produkt tillverkar du<span className="text-sis-pomegranate">?</span>
                 </h2>
-                <p className="text-trace-parchment/60">
-                  V\u00e4lj den som passar b\u00e4st. Du f\u00e5r ett riktigt ber\u00e4knat resultat p\u00e5 under 10 sekunder.
+                <p className="text-trace-text-secondary">
+                  Välj den som passar bäst. Du får ett riktigt beräknat resultat på under 10 sekunder.
                 </p>
               </div>
 
               {error && (
-                <div className="mb-8 border border-trace-error bg-trace-error/10 text-trace-error px-6 py-4 font-mono text-sm">
+                <div className="mb-8 border border-sis-pomegranate bg-pomegranate-dim text-sis-pomegranate px-6 py-4 font-mono text-sm">
                   {error}
                 </div>
               )}
@@ -330,40 +332,40 @@ export default function DemoPage() {
                     onClick={() => runDemo(t.id)}
                     className="group bg-trace-surface p-8 text-left hover:bg-trace-surface-2 transition-colors relative"
                   >
-                    {/* Gold accent on hover */}
-                    <div className="absolute top-0 left-0 right-0 h-[3px] bg-trace-gold opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {/* Accent on hover */}
+                    <div className="absolute top-0 left-0 right-0 h-[3px] bg-sis-pomegranate opacity-0 group-hover:opacity-100 transition-opacity" />
 
                     {/* Icon */}
                     <div className="text-5xl mb-6">{t.icon}</div>
 
                     {/* Name */}
-                    <h3 className="font-display text-2xl font-light text-trace-parchment mb-2 group-hover:text-trace-gold transition-colors">
+                    <h3 className="font-display text-2xl font-light text-trace-text mb-2 group-hover:text-sis-pomegranate transition-colors">
                       {t.name}
                     </h3>
 
                     {/* Example */}
-                    <p className="font-mono text-sm text-trace-parchment/60 mb-4">
+                    <p className="font-mono text-sm text-trace-text-secondary mb-4">
                       Exempel: {t.example}
                     </p>
 
                     {/* Materials */}
                     <div className="flex flex-wrap gap-2 mb-6">
                       {t.materials.map((m, i) => (
-                        <span key={i} className="font-mono text-[10px] px-2 py-1 border border-trace-border text-trace-parchment/50">
+                        <span key={i} className="font-mono text-[10px] px-2 py-1 border border-trace-border text-trace-text-muted">
                           {m}
                         </span>
                       ))}
                     </div>
 
                     {/* Context */}
-                    <p className="font-mono text-xs text-trace-parchment/40 mb-6">
+                    <p className="font-mono text-xs text-trace-text-muted mb-6">
                       {t.context}
                     </p>
 
                     {/* CTA */}
-                    <div className="font-mono text-sm text-trace-parchment/50 group-hover:text-trace-gold transition-colors flex items-center gap-2">
-                      Ber\u00e4kna
-                      <span className="group-hover:translate-x-1 transition-transform">\u2192</span>
+                    <div className="font-mono text-sm text-trace-text-muted group-hover:text-sis-pomegranate transition-colors flex items-center gap-2">
+                      Beräkna
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                   </button>
                 ))}
@@ -373,16 +375,16 @@ export default function DemoPage() {
               <div className="mt-8">
                 <button
                   onClick={() => setStep('roi')}
-                  className="font-mono text-sm text-trace-parchment/50 hover:text-trace-parchment transition-colors"
+                  className="font-mono text-sm text-trace-text-muted hover:text-trace-text transition-colors"
                 >
-                  \u2190 Tillbaka till ROI-kalkylatorn
+                  ← Tillbaka till ROI-kalkylatorn
                 </button>
               </div>
 
               {/* Trust */}
               <div className="mt-12 text-center border-t border-trace-border pt-8">
-                <p className="font-mono text-xs text-trace-parchment/40">
-                  Inget konto kr\u00e4vs. Inga uppgifter sparas om du inte v\u00e4ljer att skapa konto.
+                <p className="font-mono text-xs text-trace-text-muted">
+                  Inget konto krävs. Inga uppgifter sparas om du inte väljer att skapa konto.
                 </p>
               </div>
             </motion.div>
@@ -402,18 +404,18 @@ export default function DemoPage() {
               {/* Spinner */}
               <div className="w-16 h-16 border border-trace-border relative mb-8">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display text-2xl text-trace-gold italic animate-pulse">/</span>
+                  <span className="font-display text-2xl text-sis-pomegranate italic animate-pulse">/</span>
                 </div>
               </div>
 
-              <h2 className="font-display text-2xl font-light text-trace-parchment mb-4">
-                Ber\u00e4knar milj\u00f6p\u00e5verkan...
+              <h2 className="font-display text-2xl font-light text-trace-text mb-4">
+                Beräknar miljöpåverkan...
               </h2>
-              <p className="text-trace-parchment/50 text-sm max-w-md text-center mb-8">
-                Skapar produkt, ber\u00e4knar 8 milj\u00f6indikatorer enligt ISO 14040,
-                identifierar hotspots och genererar f\u00f6rb\u00e4ttringsf\u00f6rslag.
+              <p className="text-trace-text-muted text-sm max-w-md text-center mb-8">
+                Skapar produkt, beräknar 8 miljöindikatorer enligt ISO 14040,
+                identifierar hotspots och genererar förbättringsförslag.
               </p>
-              <div className="flex gap-6 font-mono text-[10px] tracking-[0.1em] text-trace-parchment/40 uppercase">
+              <div className="flex gap-6 font-mono text-[10px] tracking-[0.1em] text-trace-text-muted uppercase">
                 <span>ISO 14040</span>
                 <span>ISO 14044</span>
                 <span>ISO 14067</span>
@@ -433,25 +435,25 @@ export default function DemoPage() {
             >
               {/* Result header */}
               <div className="border border-trace-border bg-trace-surface relative">
-                <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-trace-verified to-transparent" />
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-verified to-transparent" />
                 <div className="p-8">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-2 h-2 bg-trace-verified rounded-full shadow-[0_0_8px_#7EE8A2]" />
-                    <span className="font-mono text-[10px] tracking-[0.15em] text-trace-verified uppercase">
-                      Ber\u00e4kning klar
+                    <div className="w-2 h-2 bg-verified rounded-full shadow-[0_0_8px_#F1F5F9]" />
+                    <span className="font-mono text-[10px] tracking-[0.15em] text-verified uppercase">
+                      Beräkning klar
                     </span>
                   </div>
-                  <h1 className="font-display text-4xl font-light text-trace-parchment mb-2">
+                  <h1 className="font-display text-4xl font-light text-trace-text mb-2">
                     {result.product_name.replace('[Demo] ', '')}
                   </h1>
-                  <p className="font-mono text-sm text-trace-parchment/50">
-                    {result.template_name} \u00b7 {result.components.length} komponenter \u00b7 ISO 14040/14044
+                  <p className="font-mono text-sm text-trace-text-muted">
+                    {result.template_name} · {result.components.length} komponenter · ISO 14040/14044
                   </p>
                   <button
                     onClick={reset}
-                    className="mt-4 font-mono text-xs text-trace-parchment/40 hover:text-trace-parchment transition-colors"
+                    className="mt-4 font-mono text-xs text-trace-text-muted hover:text-trace-text transition-colors"
                   >
-                    \u2190 B\u00f6rja om
+                    ← Börja om
                   </button>
                 </div>
               </div>
@@ -459,21 +461,21 @@ export default function DemoPage() {
               {/* 4 key indicators */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-trace-border">
                 {[
-                  { key: 'co2e_kg', label: 'Klimatp\u00e5verkan', unit: 'kg CO\u2082e' },
-                  { key: 'water_l', label: 'Vattenf\u00f6rbrukning', unit: 'liter' },
-                  { key: 'energy_mj', label: 'Energianv\u00e4ndning', unit: 'MJ' },
+                  { key: 'co2e_kg', label: 'Klimatpåverkan', unit: 'kg CO₂e' },
+                  { key: 'water_l', label: 'Vattenförbrukning', unit: 'liter' },
+                  { key: 'energy_mj', label: 'Energianvändning', unit: 'MJ' },
                   { key: 'circularity_pct', label: 'Cirkularitet', unit: '%' },
                 ].map((ind) => {
                   const value = result.indicators[ind.key] ?? 0
                   return (
                     <div key={ind.key} className="bg-trace-surface p-6">
-                      <div className="font-mono text-[9px] tracking-[0.15em] text-trace-parchment/40 uppercase mb-2">
+                      <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
                         {ind.label}
                       </div>
-                      <div className="font-mono text-3xl text-trace-parchment">
+                      <div className="font-mono text-3xl text-trace-text">
                         {typeof value === 'number' ? value.toLocaleString('sv-SE', { maximumFractionDigits: 1 }) : value}
                       </div>
-                      <div className="font-mono text-xs text-trace-parchment/50">{ind.unit}</div>
+                      <div className="font-mono text-xs text-trace-text-muted">{ind.unit}</div>
                     </div>
                   )
                 })}
@@ -483,11 +485,11 @@ export default function DemoPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-trace-border">
                 {/* Hotspots */}
                 <div className="bg-trace-surface p-8">
-                  <h3 className="font-mono text-[10px] tracking-[0.15em] text-trace-parchment/50 uppercase mb-6">
-                    Hotspots \u2014 var kommer p\u00e5verkan ifr\u00e5n?
+                  <h3 className="font-mono text-[10px] tracking-[0.15em] text-trace-text-muted uppercase mb-6">
+                    Hotspots — var kommer påverkan ifrån?
                   </h3>
                   {result.hotspots.length === 0 ? (
-                    <p className="text-sm text-trace-parchment/50">Inga hotspots identifierade.</p>
+                    <p className="text-sm text-trace-text-muted">Inga hotspots identifierade.</p>
                   ) : (
                     <div className="space-y-4">
                       {result.hotspots.map((hs, i) => {
@@ -495,15 +497,15 @@ export default function DemoPage() {
                         return (
                           <div key={i}>
                             <div className="flex justify-between font-mono text-sm mb-2">
-                              <span className="text-trace-parchment">{hs.name}</span>
-                              <span className="text-trace-parchment/60">{pct}%</span>
+                              <span className="text-trace-text">{hs.name}</span>
+                              <span className="text-trace-text-secondary">{pct}%</span>
                             </div>
                             <div className="w-full h-1 bg-trace-border">
                               <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${pct}%` }}
                                 transition={{ duration: 0.8, delay: i * 0.15 }}
-                                className="h-1 bg-trace-gold"
+                                className="h-1 bg-sis-pomegranate"
                               />
                             </div>
                           </div>
@@ -515,14 +517,14 @@ export default function DemoPage() {
 
                 {/* Components */}
                 <div className="bg-trace-surface p-8">
-                  <h3 className="font-mono text-[10px] tracking-[0.15em] text-trace-parchment/50 uppercase mb-6">
+                  <h3 className="font-mono text-[10px] tracking-[0.15em] text-trace-text-muted uppercase mb-6">
                     Produktens komponenter
                   </h3>
                   <div className="space-y-3">
                     {result.components.map((comp, i) => (
                       <div key={i} className="flex justify-between items-center py-2 border-b border-trace-border last:border-0">
-                        <span className="font-mono text-sm text-trace-parchment">{comp.name}</span>
-                        <span className="font-mono text-sm text-trace-parchment/50">
+                        <span className="font-mono text-sm text-trace-text">{comp.name}</span>
+                        <span className="font-mono text-sm text-trace-text-muted">
                           {comp.quantity} {comp.unit}
                         </span>
                       </div>
@@ -534,15 +536,15 @@ export default function DemoPage() {
               {/* Recommendations */}
               {result.recommendations.length > 0 && (
                 <div className="border border-trace-border bg-trace-surface p-8">
-                  <h3 className="font-mono text-[10px] tracking-[0.15em] text-trace-verified uppercase mb-6">
-                    F\u00f6rb\u00e4ttringsf\u00f6rslag
+                  <h3 className="font-mono text-[10px] tracking-[0.15em] text-verified uppercase mb-6">
+                    Förbättringsförslag
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {result.recommendations.map((rec, i) => (
-                      <div key={i} className="border-l-2 border-trace-verified pl-4">
-                        <div className="font-mono text-sm text-trace-parchment mb-1">{rec.action}</div>
-                        <div className="font-mono text-xs text-trace-verified">{rec.impact}</div>
-                        <div className="font-mono text-[10px] text-trace-parchment/40 mt-2">{rec.standard}</div>
+                      <div key={i} className="border-l-2 border-verified pl-4">
+                        <div className="font-mono text-sm text-trace-text mb-1">{rec.action}</div>
+                        <div className="font-mono text-xs text-verified">{rec.impact}</div>
+                        <div className="font-mono text-[10px] text-trace-text-muted mt-2">{rec.standard}</div>
                       </div>
                     ))}
                   </div>
@@ -550,42 +552,42 @@ export default function DemoPage() {
               )}
 
               {/* Badge + CTA */}
-              <div className="border border-trace-gold bg-trace-surface-2">
+              <div className="border border-sis-pomegranate bg-trace-surface-2">
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                   {/* Badge preview */}
                   <div className="p-8 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-trace-border">
                     <div className="border border-trace-border bg-trace-surface p-6 max-w-xs w-full relative">
-                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-trace-gold to-trace-verified" />
+                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-sis-pomegranate to-verified" />
 
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-display text-lg font-light">TR<span className="text-trace-gold italic">/</span>ACE</span>
+                        <span className="font-display text-lg font-light">TR<span className="text-sis-pomegranate italic">/</span>ACE</span>
                         <div className="flex items-center gap-1">
-                          <div className="w-1.5 h-1.5 bg-trace-verified rounded-full" />
-                          <span className="font-mono text-[8px] text-trace-verified uppercase">Verified</span>
+                          <div className="w-1.5 h-1.5 bg-verified rounded-full" />
+                          <span className="font-mono text-[8px] text-verified uppercase">Verified</span>
                         </div>
                       </div>
 
-                      <div className="font-mono text-sm text-trace-parchment mb-4">
+                      <div className="font-mono text-sm text-trace-text mb-4">
                         {result.product_name.replace('[Demo] ', '')}
                       </div>
 
                       <div className="space-y-2 border-t border-trace-border pt-4">
                         <div className="flex justify-between font-mono text-xs">
-                          <span className="text-trace-parchment/50">CO\u2082e</span>
-                          <span className="text-trace-parchment">{result.indicators.co2e_kg?.toFixed(1)} kg</span>
+                          <span className="text-trace-text-muted">CO₂e</span>
+                          <span className="text-trace-text">{result.indicators.co2e_kg?.toFixed(1)} kg</span>
                         </div>
                         <div className="flex justify-between font-mono text-xs">
-                          <span className="text-trace-parchment/50">Vatten</span>
-                          <span className="text-trace-parchment">{result.indicators.water_l?.toFixed(0)} L</span>
+                          <span className="text-trace-text-muted">Vatten</span>
+                          <span className="text-trace-text">{result.indicators.water_l?.toFixed(0)} L</span>
                         </div>
                         <div className="flex justify-between font-mono text-xs">
-                          <span className="text-trace-parchment/50">Cirkularitet</span>
-                          <span className="text-trace-parchment">{result.indicators.circularity_pct?.toFixed(0)}%</span>
+                          <span className="text-trace-text-muted">Cirkularitet</span>
+                          <span className="text-trace-text">{result.indicators.circularity_pct?.toFixed(0)}%</span>
                         </div>
                       </div>
 
                       <div className="mt-4 pt-4 border-t border-trace-border">
-                        <div className="font-mono text-[9px] text-trace-parchment/40">
+                        <div className="font-mono text-[9px] text-trace-text-muted">
                           TRC-2025-{String(result.run_id).padStart(5, '0')}
                         </div>
                       </div>
@@ -594,15 +596,15 @@ export default function DemoPage() {
 
                   {/* CTA */}
                   <div className="p-8">
-                    <div className="font-mono text-[10px] tracking-[0.15em] text-trace-gold uppercase mb-4">
-                      N\u00e4sta steg
+                    <div className="font-mono text-[10px] tracking-[0.15em] text-sis-pomegranate uppercase mb-4">
+                      Nästa steg
                     </div>
-                    <h3 className="font-display text-3xl font-light text-trace-parchment mb-4">
-                      Det h\u00e4r tog 10 sekunder<span className="text-trace-gold">.</span>
+                    <h3 className="font-display text-3xl font-light text-trace-text mb-4">
+                      Det här tog 10 sekunder<span className="text-sis-pomegranate">.</span>
                     </h3>
-                    <p className="text-trace-parchment/60 mb-8 leading-relaxed">
-                      Med ett konto kan du justera varje komponent, k\u00f6ra nya scenarier,
-                      exportera ISO-rapport som PDF, och f\u00e5 ett h\u00e5llbarhetsbevis att
+                    <p className="text-trace-text-secondary mb-8 leading-relaxed">
+                      Med ett konto kan du justera varje komponent, köra nya scenarier,
+                      exportera ISO-rapport som PDF, och få ett hållbarhetsbevis att
                       bifoga i offerter.
                     </p>
 
@@ -610,25 +612,25 @@ export default function DemoPage() {
                       <Link
                         href="/dashboard"
                         className="w-full flex items-center justify-center gap-3 px-8 py-4
-                                   bg-trace-parchment text-trace-void font-mono text-sm tracking-wide uppercase
-                                   hover:bg-trace-gold transition-colors"
+                                   bg-sis-pomegranate text-white font-mono text-sm tracking-wide uppercase
+                                   hover:bg-red-600 transition-colors border border-sis-pomegranate"
                       >
-                        Skapa konto och forts\u00e4tt
-                        <span>\u2192</span>
+                        Skapa konto och fortsätt
+                        <span>→</span>
                       </Link>
                       <Link
                         href={`/certificate/${result.run_id}`}
                         className="w-full flex items-center justify-center gap-3 px-8 py-4
-                                   border border-trace-border text-trace-parchment font-mono text-sm tracking-wide uppercase
-                                   hover:border-trace-gold hover:text-trace-gold transition-colors"
+                                   border border-trace-border text-trace-text font-mono text-sm tracking-wide uppercase
+                                   hover:border-sis-pomegranate hover:text-sis-pomegranate transition-colors"
                       >
                         Se certifikatsidan
-                        <span>\u2192</span>
+                        <span>→</span>
                       </Link>
                     </div>
 
-                    <p className="font-mono text-[10px] text-trace-parchment/40 mt-6">
-                      2 000 kr/m\u00e5n \u00b7 Obegr\u00e4nsat antal produkter \u00b7 Avsluta n\u00e4r du vill
+                    <p className="font-mono text-[10px] text-trace-text-muted mt-6">
+                      2 000 kr/mån · Obegränsat antal produkter · Avsluta när du vill
                     </p>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 """
-AI Service for 2030+ Calculator
+AI Service for TR/ACE
 Handles OpenAI/Claude API calls for BOM parsing, material matching, and insights
 """
 

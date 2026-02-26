@@ -105,7 +105,7 @@ export default async function CertificatePage({ params }: { params: { id: string
     width: 100,
     margin: 0,
     color: {
-      dark: '#EFEFEA',
+      dark: '#F8FAFC',
       light: '#00000000',
     },
   })
@@ -132,14 +132,14 @@ export default async function CertificatePage({ params }: { params: { id: string
   const indicatorCount = Object.keys(runData.indicators).length
 
   return (
-    <main className="min-h-screen bg-trace-void text-trace-parchment">
+    <main className="min-h-screen bg-trace-bg text-trace-text">
       {/* Header */}
       <header className="border-b border-trace-border">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="font-display text-2xl font-light tracking-tight">
-            TR<span className="text-trace-gold italic">/</span>ACE
+            TR<span className="text-sis-pomegranate italic">/</span>ACE
           </div>
-          <div className="font-mono text-[10px] tracking-[0.2em] text-trace-parchment/50 uppercase">
+          <div className="font-mono text-[10px] tracking-[0.2em] text-trace-text-muted uppercase">
             Screening-LCA Certificate
           </div>
         </div>
@@ -148,8 +148,8 @@ export default async function CertificatePage({ params }: { params: { id: string
       <div className="max-w-5xl mx-auto px-6 py-16">
         {/* Main Certificate */}
         <div className="border border-trace-border bg-trace-surface relative">
-          {/* Gold accent line */}
-          <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-trace-gold to-transparent" />
+          {/* Pomegranate accent line */}
+          <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-sis-pomegranate to-transparent" />
 
           {/* Certificate Header */}
           <div className="px-10 py-10 border-b border-trace-border">
@@ -157,8 +157,8 @@ export default async function CertificatePage({ params }: { params: { id: string
               <div>
                 {/* Level indicator — Screening-LCA (ej externt granskad) */}
                 <div className="inline-flex items-center gap-2 mb-6">
-                  <div className="w-2 h-2 bg-trace-verified rounded-full shadow-[0_0_8px_#7EE8A2]" />
-                  <span className="font-mono text-[10px] tracking-[0.15em] text-trace-verified uppercase">
+                  <div className="w-2 h-2 bg-verified-dot rounded-full shadow-[0_0_8px_#F32735]" />
+                  <span className="font-mono text-[10px] tracking-[0.15em] text-sis-pomegranate uppercase">
                     Screening-LCA · ISO 14040/14044 · Ej externt granskad
                   </span>
                 </div>
@@ -168,34 +168,34 @@ export default async function CertificatePage({ params }: { params: { id: string
                   {productName}
                 </h1>
                 {orgName && (
-                  <p className="font-mono text-sm text-trace-parchment/60">
+                  <p className="font-mono text-sm text-trace-text-secondary">
                     {orgName}
                   </p>
                 )}
               </div>
 
               {/* Seal */}
-              <div className="w-16 h-16 border border-trace-gold flex flex-col items-center justify-center flex-shrink-0">
-                <span className="font-mono text-[7px] tracking-[0.1em] text-trace-parchment/50">TR/ACE</span>
-                <span className="font-display text-2xl text-trace-gold italic font-light">/</span>
-                <span className="font-mono text-[6px] tracking-[0.05em] text-trace-parchment/50 text-center leading-tight">VERIFIED<br />2025</span>
+              <div className="w-16 h-16 border border-sis-pomegranate flex flex-col items-center justify-center flex-shrink-0">
+                <span className="font-mono text-[7px] tracking-[0.1em] text-trace-text-muted">TR/ACE</span>
+                <span className="font-display text-2xl text-sis-pomegranate italic font-light">/</span>
+                <span className="font-mono text-[6px] tracking-[0.05em] text-trace-text-muted text-center leading-tight">VERIFIED<br />2025</span>
               </div>
             </div>
           </div>
 
           {/* Standards & level */}
           <div className="px-10 py-6 border-b border-trace-border bg-trace-surface-2">
-            <div className="font-mono text-[10px] tracking-[0.2em] text-trace-parchment/50 uppercase mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 bg-trace-gold rounded-full" />
+            <div className="font-mono text-[10px] tracking-[0.2em] text-trace-text-muted uppercase mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 bg-sis-pomegranate rounded-full" />
               Beräkningsstandard
             </div>
-            <div className="font-mono text-xs text-trace-parchment/60 mb-1">
+            <div className="font-mono text-xs text-trace-text-secondary mb-1">
               Nivå 1 — TR/ACE screening
             </div>
             <div className="font-mono text-xl tracking-wide">
-              ISO 14040<span className="text-sis">/</span>14044
+              ISO 14040<span className="text-sis-pomegranate">/</span>14044
             </div>
-            <div className="text-sm text-trace-parchment/50 mt-1">
+            <div className="text-sm text-trace-text-muted mt-1">
               Screening-LCA enligt ISO 14040/14044-metodiken. Ej fullständig konsult-LCA.
             </div>
           </div>
@@ -212,15 +212,15 @@ export default async function CertificatePage({ params }: { params: { id: string
                   className="px-6 py-6 border-b border-r border-trace-border last:border-r-0
                              md:[&:nth-child(4n)]:border-r-0"
                 >
-                  <div className="font-mono text-[9px] tracking-[0.15em] text-trace-parchment/40 uppercase mb-2">
+                  <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
                     {meta.label}
                   </div>
-                  <div className="font-mono text-2xl text-trace-parchment">
+                  <div className="font-mono text-2xl text-trace-text">
                     {typeof value === 'number'
                       ? value.toLocaleString('sv-SE', { maximumFractionDigits: 1 })
                       : value}
                   </div>
-                  <div className="font-mono text-xs text-trace-parchment/50">
+                  <div className="font-mono text-xs text-trace-text-muted">
                     {meta.unit}
                   </div>
                 </div>
@@ -234,30 +234,30 @@ export default async function CertificatePage({ params }: { params: { id: string
               {/* Left: Certificate data */}
               <div className="space-y-3">
                 <div className="flex justify-between font-mono text-sm">
-                  <span className="text-trace-parchment/40 tracking-wide">REFERENCE</span>
-                  <span className="text-trace-parchment">{verificationId}</span>
+                  <span className="text-trace-text-muted tracking-wide">REFERENCE</span>
+                  <span className="text-trace-text">{verificationId}</span>
                 </div>
                 <div className="flex justify-between font-mono text-sm">
-                  <span className="text-trace-parchment/40 tracking-wide">ISSUED</span>
-                  <span className="text-trace-parchment">{calculatedDate}</span>
+                  <span className="text-trace-text-muted tracking-wide">ISSUED</span>
+                  <span className="text-trace-text">{calculatedDate}</span>
                 </div>
                 <div className="flex justify-between font-mono text-sm">
-                  <span className="text-trace-parchment/40 tracking-wide">VALID UNTIL</span>
-                  <span className="text-trace-parchment">{validUntil}</span>
+                  <span className="text-trace-text-muted tracking-wide">VALID UNTIL</span>
+                  <span className="text-trace-text">{validUntil}</span>
                 </div>
                 <div className="flex justify-between font-mono text-sm">
-                  <span className="text-trace-parchment/40 tracking-wide">INDICATORS</span>
-                  <span className="text-trace-verified">{indicatorCount} / {indicatorCount}</span>
+                  <span className="text-trace-text-muted tracking-wide">INDICATORS</span>
+                  <span className="text-sis-pomegranate">{indicatorCount} / {indicatorCount}</span>
                 </div>
               </div>
 
               {/* Right: QR Code */}
               <div className="flex items-center justify-center md:justify-end gap-4">
                 <div className="text-right">
-                  <div className="font-mono text-[9px] tracking-[0.15em] text-trace-parchment/40 uppercase mb-1">
+                  <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-1">
                     Verifiera
                   </div>
-                  <div className="font-mono text-xs text-trace-parchment/60">
+                  <div className="font-mono text-xs text-trace-text-secondary">
                     trace.se/c/{params.id}
                   </div>
                 </div>
@@ -277,13 +277,13 @@ export default async function CertificatePage({ params }: { params: { id: string
           {/* Footer */}
           <div className="px-10 py-4 border-t border-trace-border bg-trace-surface-2 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-2 h-2 bg-trace-verified rounded-full shadow-[0_0_8px_#7EE8A2]" />
-              <span className="font-mono text-[10px] tracking-[0.1em] text-trace-verified">
+              <div className="w-2 h-2 bg-sis-pomegranate rounded-full shadow-[0_0_8px_#F32735]" />
+              <span className="font-mono text-[10px] tracking-[0.1em] text-sis-pomegranate">
                 VERIFIED — trace.se/verify/{verificationId}
               </span>
             </div>
             <div className="font-display text-lg font-light">
-              TR<span className="text-trace-gold italic">/</span>ACE
+              TR<span className="text-sis-pomegranate italic">/</span>ACE
             </div>
           </div>
         </div>
@@ -298,23 +298,23 @@ export default async function CertificatePage({ params }: { params: { id: string
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <p className="text-trace-parchment/50 mb-6 font-mono text-sm">
+          <p className="text-trace-text-muted mb-6 font-mono text-sm">
             Skapa din egen screening-LCA på under 10 minuter.
           </p>
           <div className="flex flex-col items-center gap-4">
             <a
               href="/demo"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-trace-parchment text-trace-void
-                         font-mono text-sm tracking-wide uppercase hover:bg-trace-gold transition-colors"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-sis-pomegranate text-white
+                         font-mono text-sm tracking-wide uppercase hover:bg-red-600 transition-colors"
             >
               Testa TR/ACE – Demo
               <span>→</span>
             </a>
             <button
-              className="inline-flex items-center gap-2 font-mono text-xs text-trace-parchment/60 hover:text-trace-gold transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-xs text-trace-text-secondary hover:text-sis-pomegranate transition-colors"
             >
               Vill du ha en externt granskad analys?{' '}
-              <span className="text-trace-verified">Uppgradera till TR/ACE Verified →</span>
+              <span className="text-sis-pomegranate">Uppgradera till TR/ACE Verified →</span>
             </button>
           </div>
         </div>

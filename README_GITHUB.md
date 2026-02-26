@@ -1,8 +1,8 @@
-# 2030+ Calculator
+# TR/ACE
 
-LCA-kalkylator för SME-tillverkare med automatisk klimatberäkning via **Climatiq API** och AI-assisterad materialinmatning via **OpenAI**.
+Screening-LCA för SME-tillverkare med automatisk klimatberäkning via **Climatiq API** och AI-assisterad materialinmatning via **OpenAI**.
 
-## 🎯 Features
+## Features
 
 - **Climatiq Integration** - Automatisk CO₂e-beräkning med live emission factors
 - **OpenAI BOM Parser** - AI-tolkad materialinmatning från naturligt språk
@@ -10,7 +10,7 @@ LCA-kalkylator för SME-tillverkare med automatisk klimatberäkning via **Climat
 - **SME-optimerad** - Enkel att använda för små/medelstora tillverkare
 - **Realistisk demo** - Kontorsstol "Ergo Pro" med verkliga material
 
-## 🚀 Quick Start
+## Quick Start
 
 **Fullständig setup-guide:** Se [HANDOVER.md](HANDOVER.md)
 
@@ -31,7 +31,7 @@ pnpm dev -p 3031
 - **Email:** `demo@skandiform.example`
 - **Password:** `Demo123!`
 
-## 📊 Demo-Produkt
+## Demo-Produkt
 
 **Kontorsstol Ergo Pro**
 - Stålfot med hjul (4.5 kg)
@@ -41,13 +41,12 @@ pnpm dev -p 3031
 
 **Resultat:** ~17-60 kg CO₂e (beroende på Climatiq-data)
 
-## 📝 Dokumentation
+## Dokumentation
 
 - **[HANDOVER.md](HANDOVER.md)** - Komplett setup & deployment-guide
 - **[MATERIAL_GUIDE.md](MATERIAL_GUIDE.md)** - Climatiq-kompatibla materialnamn
-- **[walkthrough.md](.gemini/antigravity/brain/.../walkthrough.md)** - Teknisk genomgång av integrationen
 
-## 🔑 API Keys (Krävs)
+## API Keys (Krävs)
 
 Skapa `backend/.env.local` och `app/.env.local`:
 
@@ -63,9 +62,9 @@ OPENAI_MODEL=gpt-4o-mini
 NEXT_PUBLIC_API_URL=http://localhost:8002
 ```
 
-**⚠️ VIKTIGT:** Lägg ALDRIG API-nycklar i Git! De är skyddade av `.gitignore`.
+**VIKTIGT:** Lägg ALDRIG API-nycklar i Git! De är skyddade av `.gitignore`.
 
-## 📦 Tech Stack
+## Tech Stack
 
 ### Backend
 - **FastAPI** - Modern Python web framework
@@ -76,9 +75,9 @@ NEXT_PUBLIC_API_URL=http://localhost:8002
 ### Frontend
 - **Next.js 14** - React framework med TypeScript
 - **Tailwind CSS** - Utility-first styling
-- **Shadcn/ui** - Component library
+- **Framer Motion** - Animationer
 
-## 🛠️ Verifiering
+## Verifiering
 
 ```bash
 # Testa backend API
@@ -92,10 +91,10 @@ venv/bin/python verify_climatiq.py
 venv/bin/python verify_ai.py
 ```
 
-## 📄 Projektstruktur
+## Projektstruktur
 
 ```
-2030-calculator/
+trace-lca/
 ├── backend/          # FastAPI backend
 │   ├── main.py       # API endpoints
 │   ├── climatiq_service.py
@@ -109,7 +108,7 @@ venv/bin/python verify_ai.py
 └── HANDOVER.md       # Setup guide
 ```
 
-## 🎓 För SME-Användare
+## För SME-Användare
 
 ### Vad Gör Tjänsten?
 Beräknar automatiskt klimatpåverkan (CO₂e) för dina produkter enligt ISO 14067.
@@ -124,17 +123,13 @@ Beräknar automatiskt klimatpåverkan (CO₂e) för dina produkter enligt ISO 14
 2. **Rapportering** - CSRD, CBAM, EPD
 3. **Marknadsföring** - Miljöcertifieringar
 
-## 📞 Support
+## Support
 
 **Tekniska frågor:**
 - Dokumentation: `HANDOVER.md`
 - Verifieringsskript: `backend/verify_*.py`
 - Demo-skript: `backend/demo_flow.py`
 
-## 📄 License
+## License
 
-[Lägg till din licens här]
-
----
-
-**Utvecklat för SIS (Swedish Standards Institute) - Demo 1 December 2025**
+© 2024 Svenska institutet för standarder. Alla rättigheter förbehållna.

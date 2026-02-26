@@ -7,12 +7,12 @@ const benefits = [
   {
     icon: FileText,
     title: 'Vinn upphandlingar',
-    description: 'Offentliga upphandlingar kräver allt oftare miljödata. Med 2030+ har du svaret samma dag.',
+    description: 'Offentliga upphandlingar kräver allt oftare miljödata. Med TR/ACE har du svaret samma dag.',
   },
   {
     icon: TrendingUp,
     title: 'Spara 176,000 kr/år',
-    description: 'En LCA-konsult kostar 200,000 kr per produkt. 2030+ ger dig obegränsat antal för 2,000 kr/mån.',
+    description: 'En LCA-konsult kostar 200,000 kr per produkt. TR/ACE ger dig obegränsat antal för 2,000 kr/mån.',
   },
   {
     icon: Zap,
@@ -38,7 +38,7 @@ const benefits = [
 
 export default function Benefits() {
   return (
-    <section className="py-20 px-6 bg-white">
+    <section className="py-24 px-6 bg-trace-surface border-t border-trace-border">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,16 +47,25 @@ export default function Benefits() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-sis-gray-900 mb-4">
-            Varför svenska tillverkare väljer 2030+
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="w-8 h-px bg-trace-border-light" />
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-trace-text-muted">
+              Fördelar
+            </span>
+            <span className="w-8 h-px bg-trace-border-light" />
+          </div>
+
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-trace-text mb-4">
+            Varför svenska tillverkare väljer <span className="text-sis-pomegranate italic">TR/ACE</span>
           </h2>
-          <p className="text-lg text-sis-gray-600 max-w-2xl mx-auto">
+          <p className="text-base text-trace-text-muted max-w-2xl mx-auto">
             95% av svenska företag är SME. De har samma miljökrav som storföretagen -
             men inte samma resurser. Tills nu.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-trace-border">
           {benefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}
@@ -64,18 +73,17 @@ export default function Benefits() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group bg-white rounded-2xl p-6 border border-sis-gray-200
-                         hover:shadow-lg hover:border-sis-pomegranate/20 transition-all duration-300"
+              className="group bg-trace-bg p-8 hover:bg-trace-surface transition-colors duration-300"
             >
-              <div className="w-12 h-12 bg-sis-pomegranate/10 rounded-xl
-                              flex items-center justify-center mb-4
-                              group-hover:scale-110 transition-transform duration-300">
-                <benefit.icon className="w-6 h-6 text-sis-pomegranate" />
+              <div className="w-10 h-10 border border-trace-border-light
+                              flex items-center justify-center mb-6
+                              group-hover:border-sis-pomegranate transition-colors duration-300">
+                <benefit.icon className="w-5 h-5 text-sis-pomegranate" />
               </div>
-              <h3 className="text-lg font-semibold text-sis-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-trace-text mb-2">
                 {benefit.title}
               </h3>
-              <p className="text-sis-gray-600 leading-relaxed text-sm">
+              <p className="text-sm text-trace-text-muted leading-relaxed">
                 {benefit.description}
               </p>
             </motion.div>

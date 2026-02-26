@@ -43,7 +43,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 
 init_db()
 
-app = FastAPI(title="2030+ Calculator API")
+app = FastAPI(title="TR/ACE API")
 
 cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3030,http://127.0.0.1:3030,http://localhost:3031,http://127.0.0.1:3031").split(",")
 app.add_middleware(
@@ -976,7 +976,7 @@ def export_run(run_id: int, format: str = "pdf", db: Session = Depends(get_sessi
             </style>
           </head>
           <body>
-            <h1>2030+ Calculator – ISO-rapport</h1>
+            <h1>TR/ACE – ISO-rapport</h1>
             <p><strong>Produkt-ID:</strong> {run.product_id}</p>
             <p><strong>Metodversion:</strong> {run.method_version}</p>
             <p><strong>Beräknad:</strong> {run.created_at.strftime("%Y-%m-%d %H:%M")}</p>

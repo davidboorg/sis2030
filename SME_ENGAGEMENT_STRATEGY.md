@@ -1,6 +1,6 @@
 # SME Engagement Strategy: Två spår för ökat SME-engagemang
 
-> Baserat på review av 2030+ Calculator-projektet och input från CEN/CENELEC AG SME-mötet.
+> Baserat på review av TR/ACE Calculator-projektet och input från CEN/CENELEC AG SME-mötet.
 > Mål: Göra projektet betydligt lättare, mer kommunikativt och säljigare för SME-bolag.
 > Tidslinje: Redo för action plan slutet av april, PC-möte mitten av maj.
 
@@ -84,7 +84,7 @@ Innan man ens loggar in - visa vad det är värt:
 │  Potentiell förlorad omsättning:         │
 │  1,250,000 kr/år                         │
 │                                          │
-│  Kostnad för 2030+: 24,000 kr/år         │
+│  Kostnad för TR/ACE: 24,000 kr/år         │
 │  ROI: 5,108%                             │
 │                                          │
 │  [ Se ditt resultat direkt → ]           │
@@ -95,7 +95,7 @@ Innan man ens loggar in - visa vad det är värt:
 
 Byt ut den generiska texten mot berättande format:
 
-> **"Vi förlorade en upphandling värd 400,000 kr för att vi inte kunde visa vår klimatpåverkan. Med 2030+ hade vi haft svaret samma dag."**
+> **"Vi förlorade en upphandling värd 400,000 kr för att vi inte kunde visa vår klimatpåverkan. Med TR/ACE hade vi haft svaret samma dag."**
 > — Produktionschef, möbeltillverkare, 22 anställda
 
 Skapa 3-5 sådana stories baserade på verkliga scenarion från:
@@ -148,7 +148,7 @@ När analysen är klar, visa inte bara siffror - visa vad de **betyder för aff�
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│  UTAN 2030+            │  MED 2030+                 │
+│  UTAN TR/ACE            │  MED TR/ACE                 │
 │                        │                            │
 │  LCA-konsult           │  Licens                    │
 │  200,000 kr/produkt    │  2,000 kr/månad            │
@@ -165,7 +165,7 @@ När analysen är klar, visa inte bara siffror - visa vad de **betyder för aff�
 
 **Nivå 2 - Affärsmöjligheten (viktigast för tillväxt)**
 
-Konkreta situationer där 2030+ öppnar dörrar:
+Konkreta situationer där TR/ACE öppnar dörrar:
 - "Offentlig upphandling kräver miljödata - utan den förlorar du affären"
 - "Din storföretagskund ber om en EPD - du levererar på en dag istället för att säga nej"
 - "Ditt varumärke stärks - konsumenter betalar 10-15% mer för transparent hållbarhetsdata"
@@ -195,9 +195,9 @@ Efter genomförd analys genereras ett visuellt kort/badge:
 │  Cirkularitet:   34%                   │
 │                                        │
 │  Beräknad enligt ISO 14067             │
-│  via SIS 2030+ Calculator              │
+│  via SIS TR/ACE Calculator              │
 │                                        │
-│  Verifierings-ID: SIS-2030-00847      │
+│  Verifierings-ID: TRACE-00847      │
 │  [QR-kod]                              │
 └────────────────────────────────────────┘
 ```
@@ -208,7 +208,7 @@ Detta kort kan:
 - Delas i sociala medier
 - Skrivas ut och sättas på produkten
 
-**Varje delning blir marknadsföring.** När Skandiform bifogar sitt hållbarhetsbevis i en offert ser mottagaren SIS 2030+ Calculator. Viral loop utan marknadsbudget.
+**Varje delning blir marknadsföring.** När Skandiform bifogar sitt hållbarhetsbevis i en offert ser mottagaren SIS TR/ACE Calculator. Viral loop utan marknadsbudget.
 
 **Nyckelinsikt:** SME:s engagerar sig inte i standardisering för standardiseringens skull. De engagerar sig om det hjälper dem vinna affärer. Hela spår 1 är designat kring den insikten - från första intryck till delbart resultat.
 
@@ -263,7 +263,7 @@ Mötesanteckningarna nämner "Meeting Standards"-eventet 17-21 november med SME 
 
 1. **Före eventet (sep-okt):** Kör pilotprogram med 10-15 SME via branschorganisationer
 2. **Under eventet:** Presentera pilotresultaten som business cases
-3. **Under eventet:** Live-demo där en SME-ägare kör 2030+ Calculator på scen
+3. **Under eventet:** Live-demo där en SME-ägare kör TR/ACE Calculator på scen
 4. **Efter eventet (dec-jan):** Erbjud alla deltagare 3 månaders gratis Pro-tillgång
 
 #### D) SME-kontaktperson på SIS
@@ -277,7 +277,7 @@ Mötesanteckningarna tar upp fördelarna med att *"utse en kontaktperson för un
 
 #### E) Online-first allt
 
-Mötesanteckningarna bekräftar: *"se till att man kan delta online på alla möten"*. För 2030+ Calculator:
+Mötesanteckningarna bekräftar: *"se till att man kan delta online på alla möten"*. För TR/ACE Calculator:
 
 - All onboarding sker digitalt (inga fysiska workshops krävs)
 - Video-tutorials: "Din första miljöanalys på 10 minuter" (max 3 min per video)
@@ -287,7 +287,7 @@ Mötesanteckningarna bekräftar: *"se till att man kan delta online på alla mö
 #### F) DIN:s monitoring tool som inspiration
 
 Mötesanteckningarna nämner DIN:s "monitoring tool" och nationella "SME WG". Undersök:
-- Kan 2030+ Calculator integrera en förenklad version av DIN:s monitoring?
+- Kan TR/ACE Calculator integrera en förenklad version av DIN:s monitoring?
 - Kan vi bygga en svensk SME-arbetsgrupp som testar och ger feedback?
 - Erbjud att dela SIS-pilotresultat tillbaka till CEN/CENELEC som use case
 
@@ -331,11 +331,11 @@ Mötesanteckningarna nämner DIN:s "monitoring tool" och nationella "SME WG". Un
 
 ## Koppling till CEN/CENELEC AG SME-arbetet
 
-| AG SME-beslut/observation | Hur 2030+ adresserar det |
+| AG SME-beslut/observation | Hur TR/ACE adresserar det |
 |--------------------------|-------------------------|
 | Ny action plan behövs (april) | Detta dokument kan vara SIS-bidraget |
 | Business cases efterfrågas | Spår 1 steg 3: business cases i tre nivåer |
-| Guide 17-piloter ej genomförda | 2030+ kan bli den svenska piloten |
+| Guide 17-piloter ej genomförda | TR/ACE kan bli den svenska piloten |
 | Online-deltagande viktigt | Spår 2E: allt digital-first |
 | SME-kontaktperson föreslås | Spår 2D: konkret rollbeskrivning |
 | Avgifter hindrar deltagande | Spår 2B: freemium-modell |

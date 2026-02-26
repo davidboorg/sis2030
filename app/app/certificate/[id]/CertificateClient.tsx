@@ -75,10 +75,10 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
       {/* Actions Panel */}
       <div className="mt-8 border border-trace-border bg-trace-surface">
         <div className="px-8 py-6 border-b border-trace-border">
-          <div className="font-mono text-[10px] tracking-[0.2em] text-trace-parchment/50 uppercase mb-3">
+          <div className="font-mono text-[10px] tracking-[0.2em] text-trace-text-muted uppercase mb-3">
             Dela &amp; Ladda ner
           </div>
-          <p className="text-sm text-trace-parchment/60">
+          <p className="text-sm text-trace-text-secondary">
             Använd certifikatet i offerter, på din hemsida, eller som QR-kod på produkten.
           </p>
         </div>
@@ -90,10 +90,10 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
             className="px-6 py-5 border-r border-b border-trace-border text-left
                        hover:bg-trace-surface-2 transition-colors group"
           >
-            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-parchment/40 uppercase mb-2">
+            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
               Dela på
             </div>
-            <div className="font-mono text-sm text-trace-parchment group-hover:text-trace-gold transition-colors">
+            <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
               LinkedIn →
             </div>
           </button>
@@ -104,10 +104,10 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
             className="px-6 py-5 border-r border-b border-trace-border text-left
                        hover:bg-trace-surface-2 transition-colors group"
           >
-            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-parchment/40 uppercase mb-2">
+            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
               Skicka via
             </div>
-            <div className="font-mono text-sm text-trace-parchment group-hover:text-trace-gold transition-colors">
+            <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
               E-post →
             </div>
           </button>
@@ -118,14 +118,14 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
             className="px-6 py-5 border-r border-b border-trace-border text-left
                        hover:bg-trace-surface-2 transition-colors group"
           >
-            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-parchment/40 uppercase mb-2">
+            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
               Kopiera
             </div>
             <div className="font-mono text-sm transition-colors">
               {copied ? (
-                <span className="text-trace-verified">Kopierad ✓</span>
+                <span className="text-sis-pomegranate">Kopierad ✓</span>
               ) : (
-                <span className="text-trace-parchment group-hover:text-trace-gold">Länk →</span>
+                <span className="text-trace-text group-hover:text-sis-pomegranate">Länk →</span>
               )}
             </div>
           </button>
@@ -137,10 +137,10 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
                        hover:bg-trace-surface-2 transition-colors group
                        md:border-r-0"
           >
-            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-parchment/40 uppercase mb-2">
+            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
               Ladda ner
             </div>
-            <div className="font-mono text-sm text-trace-parchment group-hover:text-trace-gold transition-colors">
+            <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
               Badge →
             </div>
           </button>
@@ -148,22 +148,22 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
 
         {/* Embed Code */}
         <div className="px-8 py-6">
-          <div className="font-mono text-[9px] tracking-[0.15em] text-trace-parchment/40 uppercase mb-3">
+          <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-3">
             Embed-kod för hemsida
           </div>
-          <p className="text-xs text-trace-parchment/50 mb-3">
+          <p className="text-xs text-trace-text-muted mb-3">
             Sätt badgen i dina offerter, på hemsidan eller skriv ut som QR-kod på produkten.
           </p>
           <div className="flex gap-3">
             <div className="flex-1 bg-trace-surface-2 border border-trace-border px-4 py-3
-                            font-mono text-xs text-trace-parchment/60 overflow-x-auto whitespace-nowrap">
+                            font-mono text-xs text-trace-text-secondary overflow-x-auto whitespace-nowrap">
               {`<img src="${API_URL}/badge/${runId}.svg" alt="TR/ACE Screening-LCA" />`}
             </div>
             <button
               onClick={handleCopyEmbed}
               className="px-6 py-3 border border-trace-border font-mono text-xs uppercase tracking-wide
-                         text-trace-parchment hover:bg-trace-gold hover:text-trace-void
-                         hover:border-trace-gold transition-colors flex-shrink-0"
+                         text-trace-text hover:bg-sis-pomegranate hover:text-white
+                         hover:border-sis-pomegranate transition-colors flex-shrink-0"
             >
               {embedCopied ? '✓ Kopierad' : 'Kopiera'}
             </button>
@@ -178,7 +178,7 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-trace-void/90 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-trace-bg/90 flex items-center justify-center z-50 p-4"
             onClick={() => setShowDownloadModal(false)}
           >
             <motion.div
@@ -191,17 +191,17 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
               {/* Modal Header */}
               <div className="px-8 py-6 border-b border-trace-border flex items-center justify-between">
                 <div>
-                  <div className="font-mono text-[10px] tracking-[0.2em] text-trace-parchment/50 uppercase mb-1">
+                  <div className="font-mono text-[10px] tracking-[0.2em] text-trace-text-muted uppercase mb-1">
                     Ladda ner
                   </div>
-                  <div className="font-display text-xl font-light text-trace-parchment">
+                  <div className="font-display text-xl font-light text-trace-text">
                     Badge-format
                   </div>
                 </div>
                 <button
                   onClick={() => setShowDownloadModal(false)}
                   className="w-10 h-10 border border-trace-border flex items-center justify-center
-                             text-trace-parchment/50 hover:text-trace-parchment hover:border-trace-parchment
+                             text-trace-text-muted hover:text-trace-text hover:border-trace-text
                              transition-colors font-mono text-lg"
                 >
                   ×
@@ -220,14 +220,14 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-mono text-sm text-trace-parchment group-hover:text-trace-gold transition-colors">
+                      <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
                         SVG
                       </div>
-                      <div className="font-mono text-xs text-trace-parchment/40 mt-1">
+                      <div className="font-mono text-xs text-trace-text-muted mt-1">
                         Skalbart vektorformat. Bäst för webb och tryck.
                       </div>
                     </div>
-                    <span className="font-mono text-trace-parchment/30 group-hover:text-trace-gold transition-colors">
+                    <span className="font-mono text-trace-text-muted group-hover:text-sis-pomegranate transition-colors">
                       →
                     </span>
                   </div>
@@ -243,14 +243,14 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-mono text-sm text-trace-parchment group-hover:text-trace-gold transition-colors">
+                      <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
                         PNG
                       </div>
-                      <div className="font-mono text-xs text-trace-parchment/40 mt-1">
+                      <div className="font-mono text-xs text-trace-text-muted mt-1">
                         Transparent bakgrund. Fungerar överallt.
                       </div>
                     </div>
-                    <span className="font-mono text-trace-parchment/30 group-hover:text-trace-gold transition-colors">
+                    <span className="font-mono text-trace-text-muted group-hover:text-sis-pomegranate transition-colors">
                       →
                     </span>
                   </div>
@@ -260,14 +260,14 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
                 <div className="w-full px-8 py-5 text-left opacity-40 cursor-not-allowed">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-mono text-sm text-trace-parchment">
+                      <div className="font-mono text-sm text-trace-text">
                         PDF-rapport
                       </div>
-                      <div className="font-mono text-xs text-trace-parchment/40 mt-1">
+                      <div className="font-mono text-xs text-trace-text-muted mt-1">
                         Fullständig ISO-rapport. Kräver konto.
                       </div>
                     </div>
-                    <span className="font-mono text-xs text-trace-parchment/30 border border-trace-border px-2 py-1">
+                    <span className="font-mono text-xs text-trace-text-muted border border-trace-border px-2 py-1">
                       PRO
                     </span>
                   </div>
@@ -276,7 +276,7 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
 
               {/* Footer */}
               <div className="px-8 py-4 border-t border-trace-border">
-                <p className="font-mono text-[10px] text-trace-parchment/30 text-center">
+                <p className="font-mono text-[10px] text-trace-text-muted text-center">
                   Badgen är endast giltig för den produkt den är utfärdad för.
                 </p>
               </div>

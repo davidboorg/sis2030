@@ -16,7 +16,7 @@ const seedBadges = [
   {
     id: '2',
     product: 'Konferensbord Flex',
-    company: 'M\u00f6belfabriken',
+    company: 'Möbelfabriken',
     location: 'Lammhult',
     co2e: 34.2,
     verified: true,
@@ -31,9 +31,9 @@ const seedBadges = [
   },
   {
     id: '4',
-    product: 'F\u00f6rpackningsl\u00f6sning',
+    product: 'Förpackningslösning',
     company: 'Nordic Pack',
-    location: 'Malm\u00f6',
+    location: 'Malmö',
     co2e: 2.1,
     verified: true,
   },
@@ -41,20 +41,20 @@ const seedBadges = [
 
 export default function BadgeGallery() {
   return (
-    <section className="py-24 bg-trace-void border-t border-trace-border">
+    <section className="py-24 bg-trace-bg border-t border-trace-border">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="mb-16">
-          <div className="font-mono text-[10px] tracking-[0.2em] text-trace-gold uppercase mb-4 flex items-center gap-3">
-            <span className="w-6 h-px bg-trace-gold" />
+          <div className="font-mono text-[10px] tracking-[0.2em] text-sis-pomegranate uppercase mb-4 flex items-center gap-3">
+            <span className="w-6 h-px bg-sis-pomegranate" />
             Social Proof
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-light text-trace-parchment tracking-tight mb-4">
-            F\u00f6retag som redan visar<br />
-            sin klimatp\u00e5verkan<span className="text-trace-gold">.</span>
+          <h2 className="font-display text-4xl md:text-5xl font-light text-trace-text tracking-tight mb-4">
+            Företag som redan visar<br />
+            sin klimatpåverkan<span className="text-sis-pomegranate">.</span>
           </h2>
-          <p className="text-trace-parchment/60 max-w-xl">
-            Varje badge \u00e4r en screening-LCA enligt ISO 14040/14044-metodiken. Klicka f\u00f6r att se hela certifikatet.
+          <p className="text-trace-text-secondary max-w-xl">
+            Varje badge är en screening-LCA enligt ISO 14040/14044-metodiken. Klicka för att se hela certifikatet.
           </p>
         </div>
 
@@ -72,40 +72,40 @@ export default function BadgeGallery() {
                 href={`/certificate/${badge.id}`}
                 className="block bg-trace-surface p-6 hover:bg-trace-surface-2 transition-colors group relative"
               >
-                {/* Gold accent on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-trace-gold opacity-0 group-hover:opacity-100 transition-opacity" />
+                {/* Pomegranate accent on hover */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-sis-pomegranate opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 {/* Level indicator */}
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-2 h-2 bg-trace-verified rounded-full shadow-[0_0_6px_#7EE8A2]" />
-                  <span className="font-mono text-[9px] tracking-[0.1em] text-trace-verified uppercase">
+                  <div className="w-2 h-2 bg-sis-pomegranate rounded-full shadow-[0_0_6px_#F32735]" />
+                  <span className="font-mono text-[9px] tracking-[0.1em] text-sis-pomegranate uppercase">
                     Nivå 1 · Screening-LCA
                   </span>
                 </div>
 
                 {/* Product */}
-                <h3 className="font-display text-lg font-light text-trace-parchment mb-1 group-hover:text-trace-gold transition-colors">
+                <h3 className="font-display text-lg font-light text-trace-text mb-1 group-hover:text-sis-pomegranate transition-colors">
                   {badge.product}
                 </h3>
-                <p className="font-mono text-xs text-trace-parchment/50 mb-6">
-                  {badge.company} \u00b7 {badge.location}
+                <p className="font-mono text-xs text-trace-text-muted mb-6">
+                  {badge.company} · {badge.location}
                 </p>
 
                 {/* CO2e metric */}
                 <div className="border-t border-trace-border pt-4">
-                  <div className="font-mono text-[9px] tracking-[0.1em] text-trace-parchment/40 uppercase mb-1">
-                    Klimatp\u00e5verkan
+                  <div className="font-mono text-[9px] tracking-[0.1em] text-trace-text-muted uppercase mb-1">
+                    Klimatpåverkan
                   </div>
-                  <div className="font-mono text-2xl text-trace-parchment">
+                  <div className="font-mono text-2xl text-trace-text">
                     {badge.co2e.toFixed(1)}
-                    <span className="text-sm text-trace-parchment/50 ml-1">kg CO\u2082e</span>
+                    <span className="text-sm text-trace-text-muted ml-1">kg CO₂e</span>
                   </div>
                 </div>
 
                 {/* View link */}
-                <div className="mt-4 font-mono text-xs text-trace-parchment/30 group-hover:text-trace-gold transition-colors flex items-center gap-2">
+                <div className="mt-4 font-mono text-xs text-trace-text-muted group-hover:text-sis-pomegranate transition-colors flex items-center gap-2">
                   Se certifikat
-                  <span className="group-hover:translate-x-1 transition-transform">\u2192</span>
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </Link>
             </motion.div>
@@ -114,16 +114,16 @@ export default function BadgeGallery() {
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <p className="font-mono text-sm text-trace-parchment/50 mb-6">
-            Vill du att ditt f\u00f6retag ska synas h\u00e4r?
+          <p className="font-mono text-sm text-trace-text-muted mb-6">
+            Vill du att ditt företag ska synas här?
           </p>
           <Link
             href="/demo"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-trace-parchment text-trace-void
-                       font-mono text-sm tracking-wide uppercase hover:bg-trace-gold transition-colors"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-sis-pomegranate text-white
+                       font-mono text-sm tracking-wide uppercase hover:bg-red-600 transition-colors"
           >
-            Skapa din f\u00f6rsta analys
-            <span>\u2192</span>
+            Skapa din första analys
+            <span>→</span>
           </Link>
         </div>
       </div>
