@@ -40,6 +40,22 @@ const templates: Template[] = [
     materials: ['Stål', 'CNC', 'Ytbehandling'],
     context: 'Underleverantör fordon/industri',
   },
+  {
+    id: 'construction',
+    name: 'Bygg & Fastighet',
+    icon: '🏗️',
+    example: 'Byggelement',
+    materials: ['Betong', 'Stål', 'Isolering'],
+    context: 'Prefab, stomme, element',
+  },
+  {
+    id: 'textile',
+    name: 'Textil',
+    icon: '👕',
+    example: 'Plagg (t-shirt)',
+    materials: ['Bomull', 'Polyester', 'Färgning'],
+    context: 'Mode, arbetskläder, inredning',
+  },
 ]
 
 type Hotspot = { name: string; share_pct?: number; contribution_pct?: number }

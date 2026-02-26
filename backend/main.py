@@ -521,6 +521,75 @@ INDUSTRY_TEMPLATES = {
             },
         ],
     },
+    "construction": {
+        "name": "Bygg & Fastighet",
+        "example_product": "Byggelement",
+        "icon": "🏗️",
+        "components": [
+            {
+                "name": "Betongstomme",
+                "quantity": 15.0,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "concrete", "mass_kg": 15.0, "recycled_content_pct": 10}],
+                "processes": [{"dataset_ref": "process_concrete_mixing", "energy_kwh": 5}],
+                "transports": [
+                    {"mode": "road", "distance_km": 200, "origin_iso": "SE", "dest_iso": "SE"},
+                ],
+            },
+            {
+                "name": "Stålarmering",
+                "quantity": 8.0,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "steel", "mass_kg": 8.0, "recycled_content_pct": 35}],
+                "processes": [{"dataset_ref": "process_metal_forming", "energy_kwh": 10}],
+                "transports": [],
+            },
+            {
+                "name": "Isolering (mineralull)",
+                "quantity": 3.0,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "insulation", "mass_kg": 3.0, "recycled_content_pct": 20}],
+                "processes": [],
+                "transports": [],
+            },
+        ],
+    },
+    "textile": {
+        "name": "Textil",
+        "example_product": "Plagg (t-shirt)",
+        "icon": "👕",
+        "components": [
+            {
+                "name": "Bomullstyg",
+                "quantity": 0.3,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "cotton", "mass_kg": 0.3, "recycled_content_pct": 0}],
+                "processes": [
+                    {"dataset_ref": "process_weaving", "energy_kwh": 1.5},
+                ],
+                "transports": [
+                    {"mode": "sea", "distance_km": 15000, "origin_iso": "BD", "dest_iso": "SE"},
+                    {"mode": "road", "distance_km": 100, "origin_iso": "SE", "dest_iso": "SE"},
+                ],
+            },
+            {
+                "name": "Polyesterdetaljer",
+                "quantity": 0.15,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "polyester", "mass_kg": 0.15, "recycled_content_pct": 50}],
+                "processes": [],
+                "transports": [],
+            },
+            {
+                "name": "Färgning och finish",
+                "quantity": 0.05,
+                "unit": "kg",
+                "materials": [{"dataset_ref": "dye", "mass_kg": 0.05, "recycled_content_pct": 0}],
+                "processes": [{"dataset_ref": "process_dyeing", "energy_kwh": 2}],
+                "transports": [],
+            },
+        ],
+    },
 }
 
 

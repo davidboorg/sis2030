@@ -167,6 +167,62 @@
         "biodiversity_impact": 0.1,
         "recyclability": 0.0
       }
+    },
+    "concrete": {
+      "name": "Betong (C30/37)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 0.12,
+        "water_l": 8.0,
+        "energy_mj": 1.1,
+        "land_m2a": 0.001,
+        "acid_mol_hplus": 0.002,
+        "eutro_g_po4": 0.0008,
+        "biodiversity_impact": 0.08,
+        "recyclability": 0.70
+      }
+    },
+    "insulation": {
+      "name": "Mineralull (isolering)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 1.2,
+        "water_l": 15.0,
+        "energy_mj": 22.0,
+        "land_m2a": 0.002,
+        "acid_mol_hplus": 0.008,
+        "eutro_g_po4": 0.002,
+        "biodiversity_impact": 0.06,
+        "recyclability": 0.30
+      }
+    },
+    "cotton": {
+      "name": "Bomull (konventionell)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 8.0,
+        "water_l": 10000.0,
+        "energy_mj": 55.0,
+        "land_m2a": 0.8,
+        "acid_mol_hplus": 0.025,
+        "eutro_g_po4": 0.015,
+        "biodiversity_impact": 0.6,
+        "recyclability": 0.60
+      }
+    },
+    "dye": {
+      "name": "Textilfärg",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 12.0,
+        "water_l": 150.0,
+        "energy_mj": 85.0,
+        "land_m2a": 0.001,
+        "acid_mol_hplus": 0.04,
+        "eutro_g_po4": 0.02,
+        "biodiversity_impact": 0.15,
+        "recyclability": 0.0
+      }
     }
   },
   "processes": {
@@ -264,6 +320,42 @@
         "land_m2a": 0.0002,
         "acid_mol_hplus": 0.0012,
         "eutro_g_po4": 0.0004
+      }
+    },
+    "process_concrete_mixing": {
+      "name": "Betongblandning",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.25,
+        "water_l": 2.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0004,
+        "eutro_g_po4": 0.0001
+      }
+    },
+    "process_weaving": {
+      "name": "Vävning",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.3,
+        "water_l": 5.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0005,
+        "eutro_g_po4": 0.0002
+      }
+    },
+    "process_dyeing": {
+      "name": "Färgning (textil)",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.8,
+        "water_l": 50.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0002,
+        "acid_mol_hplus": 0.002,
+        "eutro_g_po4": 0.001
       }
     }
   },
