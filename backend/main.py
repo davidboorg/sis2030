@@ -734,7 +734,7 @@ def demo_calculate(template_id: str, db: Session = Depends(get_session)):
 
 @app.get("/badge/{run_id}")
 def get_badge_svg(run_id: int, db: Session = Depends(get_session)):
-    """Generate a shareable sustainability badge as SVG"""
+    """Generate a shareable sustainability badge as SVG — TR/ACE brand identity"""
     run = db.get(Run, run_id)
     if not run:
         raise HTTPException(status_code=404, detail="Run not found")
@@ -752,77 +752,127 @@ def get_badge_svg(run_id: int, db: Session = Depends(get_session)):
     product_name = product.name.replace("[Demo] ", "") if product else "Produkt"
     org = db.get(Organisation, product.org_id) if product else None
     org_name = org.name if org else ""
-    verification_id = f"SIS-2030-{str(run_id).zfill(5)}"
+    verification_id = f"TRC-{run.created_at.strftime('%Y')}-{str(run_id).zfill(5)}"
     calc_date = run.created_at.strftime("%Y-%m-%d")
+
+    # TR/ACE Brand Colors
+    void = "#080808"
+    surface = "#111111"
+    surface2 = "#1A1A1A"
+    border = "#272727"
+    parchment = "#EFEFEA"
+    gold = "#E8D48B"
+    verified = "#7EE8A2"
+    muted = "#666666"
 
     svg = f"""<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="520" viewBox="0 0 400 520">
   <defs>
-    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#F32735;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1"/>
+    <linearGradient id="goldFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:{gold};stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:{gold};stop-opacity:0"/>
     </linearGradient>
   </defs>
 
   <!-- Background -->
-  <rect width="400" height="520" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <rect width="400" height="520" fill="{void}"/>
+  <rect width="400" height="520" fill="{surface}" x="0" y="0"/>
+
+  <!-- Gold accent line -->
+  <rect x="0" y="0" width="400" height="3" fill="url(#goldFade)"/>
 
   <!-- Header -->
-  <rect width="400" height="80" rx="16" fill="url(#headerGrad)"/>
-  <rect y="64" width="400" height="16" fill="url(#headerGrad)"/>
+  <rect x="0" y="0" width="400" height="120" fill="{surface}"/>
 
-  <!-- Verified badge -->
-  <rect x="120" y="8" width="160" height="24" rx="12" fill="white" fill-opacity="0.2"/>
-  <text x="200" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="white">Verifierad milj\u00f6analys</text>
+  <!-- Logo: TR/ACE -->
+  <text x="32" y="52" font-family="Georgia,serif" font-size="28" font-weight="300" fill="{parchment}">TR<tspan fill="{gold}" font-style="italic">/</tspan>ACE</text>
+
+  <!-- Verified status -->
+  <circle cx="340" cy="40" r="4" fill="{verified}"/>
+  <text x="355" y="44" font-family="monospace" font-size="9" fill="{verified}" letter-spacing="0.1em">VERIFIED</text>
 
   <!-- Product name -->
-  <text x="200" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="white">{product_name}</text>
-  <text x="200" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="white" fill-opacity="0.8">{org_name} \u00b7 {calc_date}</text>
-
-  <!-- Indicators -->
-  <!-- CO2e -->
-  <rect x="24" y="100" width="168" height="80" rx="12" fill="#fef2f2"/>
-  <text x="108" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#991b1b" text-transform="uppercase" letter-spacing="0.5">Klimatp\u00e5verkan</text>
-  <text x="108" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="700" fill="#0f172a">{co2e:.1f}</text>
-  <text x="108" y="172" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#64748b">kg CO\u2082e</text>
-
-  <!-- Water -->
-  <rect x="208" y="100" width="168" height="80" rx="12" fill="#eff6ff"/>
-  <text x="292" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1e40af" text-transform="uppercase" letter-spacing="0.5">Vattenf\u00f6rbrukning</text>
-  <text x="292" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="700" fill="#0f172a">{water:.0f}</text>
-  <text x="292" y="172" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#64748b">liter</text>
-
-  <!-- Energy -->
-  <rect x="24" y="196" width="168" height="80" rx="12" fill="#fefce8"/>
-  <text x="108" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#854d0e" text-transform="uppercase" letter-spacing="0.5">Energianv\u00e4ndning</text>
-  <text x="108" y="251" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="700" fill="#0f172a">{energy:.1f}</text>
-  <text x="108" y="268" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#64748b">MJ</text>
-
-  <!-- Circularity -->
-  <rect x="208" y="196" width="168" height="80" rx="12" fill="#f0fdf4"/>
-  <text x="292" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#166534" text-transform="uppercase" letter-spacing="0.5">Cirkularitet</text>
-  <text x="292" y="251" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="700" fill="#0f172a">{circularity:.0f}%</text>
-  <text x="292" y="268" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#64748b">\u00e5tervunnet</text>
+  <text x="32" y="90" font-family="Georgia,serif" font-size="24" font-weight="300" fill="{parchment}">{product_name}</text>
+  <text x="32" y="110" font-family="monospace" font-size="11" fill="{muted}">{org_name}</text>
 
   <!-- Divider -->
-  <line x1="40" y1="300" x2="360" y2="300" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="0" y1="120" x2="400" y2="120" stroke="{border}" stroke-width="1"/>
 
-  <!-- Standards -->
-  <text x="200" y="328" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Ber\u00e4knad enligt</text>
-  <text x="200" y="348" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#475569">ISO 14067 \u00b7 ISO 14046 \u00b7 ISO 59004</text>
+  <!-- Standards section -->
+  <rect x="0" y="120" width="400" height="48" fill="{surface2}"/>
+  <text x="32" y="140" font-family="monospace" font-size="9" fill="{muted}" letter-spacing="0.15em">BER&#196;KNINGSSTANDARD</text>
+  <text x="32" y="158" font-family="monospace" font-size="14" fill="{parchment}">ISO 14040<tspan fill="{gold}">/</tspan>14044</text>
 
-  <!-- Powered by -->
-  <rect x="100" y="370" width="200" height="36" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-  <rect x="112" y="378" width="20" height="20" rx="4" fill="#F32735"/>
-  <text x="122" y="392" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="white">2+</text>
-  <text x="210" y="393" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#0f172a">SIS 2030+ Calculator</text>
+  <!-- Divider -->
+  <line x1="0" y1="168" x2="400" y2="168" stroke="{border}" stroke-width="1"/>
 
-  <!-- Verification -->
-  <text x="200" y="436" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Verifierings-ID</text>
-  <text x="200" y="456" text-anchor="middle" font-family="monospace" font-size="14" font-weight="600" fill="#334155">{verification_id}</text>
+  <!-- Indicators Grid (2x2) -->
+  <!-- CO2e -->
+  <rect x="0" y="168" width="200" height="88" fill="{surface}"/>
+  <text x="24" y="196" font-family="monospace" font-size="9" fill="{muted}" letter-spacing="0.1em">KLIMATP&#197;VERKAN</text>
+  <text x="24" y="232" font-family="monospace" font-size="32" fill="{parchment}">{co2e:.1f}</text>
+  <text x="24" y="248" font-family="monospace" font-size="11" fill="{muted}">kg CO&#8322;e</text>
+  <line x1="200" y1="168" x2="200" y2="256" stroke="{border}" stroke-width="1"/>
 
-  <!-- Bottom link -->
-  <text x="200" y="496" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Skapa din egen analys p\u00e5 2030calculator.se</text>
+  <!-- Water -->
+  <rect x="200" y="168" width="200" height="88" fill="{surface}"/>
+  <text x="224" y="196" font-family="monospace" font-size="9" fill="{muted}" letter-spacing="0.1em">VATTENF&#214;RBRUKNING</text>
+  <text x="224" y="232" font-family="monospace" font-size="32" fill="{parchment}">{water:.0f}</text>
+  <text x="224" y="248" font-family="monospace" font-size="11" fill="{muted}">liter</text>
+
+  <!-- Divider -->
+  <line x1="0" y1="256" x2="400" y2="256" stroke="{border}" stroke-width="1"/>
+
+  <!-- Energy -->
+  <rect x="0" y="256" width="200" height="88" fill="{surface}"/>
+  <text x="24" y="284" font-family="monospace" font-size="9" fill="{muted}" letter-spacing="0.1em">ENERGIANV&#196;NDNING</text>
+  <text x="24" y="320" font-family="monospace" font-size="32" fill="{parchment}">{energy:.1f}</text>
+  <text x="24" y="336" font-family="monospace" font-size="11" fill="{muted}">MJ</text>
+  <line x1="200" y1="256" x2="200" y2="344" stroke="{border}" stroke-width="1"/>
+
+  <!-- Circularity -->
+  <rect x="200" y="256" width="200" height="88" fill="{surface}"/>
+  <text x="224" y="284" font-family="monospace" font-size="9" fill="{muted}" letter-spacing="0.1em">CIRKULARITET</text>
+  <text x="224" y="320" font-family="monospace" font-size="32" fill="{parchment}">{circularity:.0f}<tspan font-size="18">%</tspan></text>
+  <text x="224" y="336" font-family="monospace" font-size="11" fill="{muted}">&#229;tervunnet</text>
+
+  <!-- Divider -->
+  <line x1="0" y1="344" x2="400" y2="344" stroke="{border}" stroke-width="1"/>
+
+  <!-- Metadata section -->
+  <rect x="0" y="344" width="400" height="96" fill="{surface}"/>
+
+  <text x="32" y="372" font-family="monospace" font-size="9" fill="{muted}">REFERENCE</text>
+  <text x="200" y="372" font-family="monospace" font-size="9" fill="{parchment}">{verification_id}</text>
+
+  <text x="32" y="392" font-family="monospace" font-size="9" fill="{muted}">ISSUED</text>
+  <text x="200" y="392" font-family="monospace" font-size="9" fill="{parchment}">{calc_date}</text>
+
+  <text x="32" y="412" font-family="monospace" font-size="9" fill="{muted}">INDICATORS</text>
+  <text x="200" y="412" font-family="monospace" font-size="9" fill="{verified}">4 / 4 &#10003;</text>
+
+  <text x="32" y="432" font-family="monospace" font-size="9" fill="{muted}">STATUS</text>
+  <circle cx="204" cy="428" r="3" fill="{verified}"/>
+  <text x="214" y="432" font-family="monospace" font-size="9" fill="{verified}">ACTIVE</text>
+
+  <!-- Divider -->
+  <line x1="0" y1="440" x2="400" y2="440" stroke="{border}" stroke-width="1"/>
+
+  <!-- Footer -->
+  <rect x="0" y="440" width="400" height="80" fill="{surface2}"/>
+
+  <!-- Seal -->
+  <rect x="32" y="456" width="48" height="48" fill="none" stroke="{gold}" stroke-width="1"/>
+  <text x="56" y="474" text-anchor="middle" font-family="monospace" font-size="7" fill="{muted}">TR/ACE</text>
+  <text x="56" y="488" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="{gold}" font-style="italic">/</text>
+  <text x="56" y="499" text-anchor="middle" font-family="monospace" font-size="6" fill="{muted}">VERIFIED</text>
+
+  <!-- Verification link -->
+  <text x="100" y="476" font-family="monospace" font-size="9" fill="{muted}">Verifiera detta certifikat:</text>
+  <text x="100" y="492" font-family="monospace" font-size="10" fill="{parchment}">trace.se/c/{run_id}</text>
+
+  <!-- Logo repeat -->
+  <text x="340" y="492" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="300" fill="{parchment}">TR<tspan fill="{gold}" font-style="italic">/</tspan>ACE</text>
 </svg>"""
 
     return Response(content=svg, media_type="image/svg+xml")

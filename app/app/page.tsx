@@ -4,6 +4,7 @@ import Steps from '@/components/landing/Steps'
 import Standards from '@/components/landing/Standards'
 import ROICalculator from '@/components/landing/ROICalculator'
 import SustainabilityBadge from '@/components/landing/SustainabilityBadge'
+import BadgeGallery from '@/components/landing/BadgeGallery'
 import CustomerStories from '@/components/landing/CustomerStories'
 import Indicators from '@/components/landing/Indicators'
 import Partners from '@/components/landing/Partners'
@@ -18,6 +19,7 @@ export default function LandingPage() {
       <Standards />
       <ROICalculator />
       <SustainabilityBadge />
+      <BadgeGallery />
       <CustomerStories />
       <Indicators />
       <Partners />

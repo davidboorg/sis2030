@@ -16,19 +16,19 @@ export default function SustainabilityBadge() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-sis-gray-900 mb-4">
-              Ditt hållbarhetsbevis - redo att dela
+              Ditt TR/ACE-bevis – redo att delas
             </h2>
             <p className="text-lg text-sis-gray-600 mb-8 leading-relaxed">
-              Varje analys genererar ett verifierat hållbarhetsbevis som du kan använda
-              direkt i dina affärer. Ingen extra kostnad, inget krångel.
+              Varje screening-LCA i TR/ACE genererar ett hållbarhetsbevis som visar din produkts
+              klimatpåverkan. Tillräckligt för upphandlingar och CSRD – utan konsult och utan krångel.
             </p>
 
             <div className="space-y-4">
               {[
-                { icon: FileDown, text: 'Bifoga i anbud och offerter' },
-                { icon: Globe, text: 'Publicera på din hemsida' },
-                { icon: Share2, text: 'Dela i sociala medier' },
-                { icon: QrCode, text: 'QR-kod direkt på produkten' },
+                { icon: FileDown, text: 'Bifoga i anbud och offentliga upphandlingar' },
+                { icon: Globe, text: 'Publicera på din hemsida som screening-LCA' },
+                { icon: Share2, text: 'Dela i sociala medier – varje badge är en annons' },
+                { icon: QrCode, text: 'Sätt QR-koden direkt på produkten' },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-sis-pomegranate/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -40,9 +40,9 @@ export default function SustainabilityBadge() {
             </div>
 
             <p className="mt-8 text-sm text-sis-gray-500 leading-relaxed">
-              Varje gång du delar ditt bevis sprids kunskapen om att miljödata
-              inte behöver vara svårt eller dyrt. Dina kollegor i branschen ser
-              och frågar hur du gjort.
+              Varje gång du delar din TR/ACE-badge berättar du att miljödata inte behöver
+              vara svårt eller dyrt. Dina kunder och kollegor ser att du har gjort en
+              screening-LCA – och frågar hur du gjort.
             </p>
           </motion.div>
 
@@ -56,12 +56,12 @@ export default function SustainabilityBadge() {
           >
             <div className="w-full max-w-sm bg-white rounded-2xl border-2 border-sis-gray-200
                             shadow-xl p-8 relative">
-              {/* Verified badge */}
+              {/* Level badge – TR/ACE screening */}
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <div className="inline-flex items-center gap-1.5 bg-green-600 text-white
                                 px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
                   <BadgeCheck className="w-4 h-4" />
-                  Verifierad miljöanalys
+                  TR/ACE Screening-LCA
                 </div>
               </div>
 
@@ -97,10 +97,10 @@ export default function SustainabilityBadge() {
                 {/* Standard reference */}
                 <div className="bg-sis-gray-50 rounded-lg p-3 mb-4">
                   <div className="text-xs text-sis-gray-500">
-                    Beräknad enligt ISO 14067 &middot; ISO 14046 &middot; ISO 59004
+                    Screening-LCA enligt ISO 14040/14044-metodiken
                   </div>
                   <div className="text-xs text-sis-gray-400 mt-1">
-                    via SIS 2030+ Calculator
+                    Emissionsfaktorer från Ecoinvent och ELCD – samma databaser som konsulterna använder
                   </div>
                 </div>
 
