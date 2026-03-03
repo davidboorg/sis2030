@@ -101,14 +101,14 @@ def calculate_indicators(db: Session, product_id: int, dataset_version: str, met
             for indicator in BASE_INDICATORS:
                 if indicator in factors:
                     impact = factors[indicator] * material.mass_kg * recycled_factor
-                    
-                    # If using Climatiq, skip local CO2e addition to global total, 
-                    # but keep it for component breakdown if needed (or overwrite)
+
+                    # If using Climatiq, skip local CO2e addition to global total
+                    # but still track in component_totals for breakdown
                     if using_climatiq and indicator == "co2e_kg":
-                        # We still calculate it for component_totals to have a breakdown
-                        # but we won't add it to the main 'indicators' dict if we overwrite later
-                        pass
-                    
+                        # Only add to component totals for breakdown, not to global indicators
+                        component_totals[indicator] += impact
+                        continue
+
                     indicators[indicator] += impact
                     component_totals[indicator] += impact
 

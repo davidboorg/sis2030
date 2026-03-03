@@ -223,6 +223,90 @@
         "biodiversity_impact": 0.15,
         "recyclability": 0.0
       }
+    },
+    "plastic_film": {
+      "name": "Plastfilm (PE)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 2.8,
+        "water_l": 25.0,
+        "energy_mj": 65.0,
+        "land_m2a": 0.003,
+        "acid_mol_hplus": 0.009,
+        "eutro_g_po4": 0.002,
+        "biodiversity_impact": 0.1,
+        "recyclability": 0.40
+      }
+    },
+    "pallet": {
+      "name": "Pall (trä)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 0.3,
+        "water_l": 10.0,
+        "energy_mj": 5.0,
+        "land_m2a": 0.003,
+        "acid_mol_hplus": 0.001,
+        "eutro_g_po4": 0.0004,
+        "biodiversity_impact": 0.05,
+        "recyclability": 0.85
+      }
+    },
+    "coolant": {
+      "name": "Kylvätska",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 1.5,
+        "water_l": 5.0,
+        "energy_mj": 20.0,
+        "land_m2a": 0.001,
+        "acid_mol_hplus": 0.005,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.08,
+        "recyclability": 0.20
+      }
+    },
+    "steel_rebar": {
+      "name": "Armeringsstål",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 1.9,
+        "water_l": 40.0,
+        "energy_mj": 30.0,
+        "land_m2a": 0.007,
+        "acid_mol_hplus": 0.013,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.18,
+        "recyclability": 0.95
+      }
+    },
+    "steel_raw": {
+      "name": "Stål (rå)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 2.3,
+        "water_l": 45.0,
+        "energy_mj": 35.0,
+        "land_m2a": 0.008,
+        "acid_mol_hplus": 0.015,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.2,
+        "recyclability": 0.90
+      }
+    },
+    "textile": {
+      "name": "Textil (generisk)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 6.5,
+        "water_l": 2500.0,
+        "energy_mj": 75.0,
+        "land_m2a": 0.15,
+        "acid_mol_hplus": 0.018,
+        "eutro_g_po4": 0.008,
+        "biodiversity_impact": 0.25,
+        "recyclability": 0.45
+      }
     }
   },
   "processes": {
