@@ -45,6 +45,10 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
     window.open(`${API_URL}/badge/${runId}`, '_blank')
   }
 
+  const handleDownloadPDF = () => {
+    window.open(`${API_URL}/certificate/${runId}/pdf`, '_blank')
+  }
+
   const handleDownloadPNG = async () => {
     try {
       const response = await fetch(`${API_URL}/badge/${runId}`)
@@ -73,12 +77,12 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
   return (
     <>
       {/* Actions Panel */}
-      <div className="mt-8 border border-trace-border bg-trace-surface">
-        <div className="px-8 py-6 border-b border-trace-border">
-          <div className="font-mono text-[10px] tracking-[0.2em] text-trace-text-muted uppercase mb-3">
+      <div className="mt-6 sm:mt-8 border border-trace-border bg-trace-surface">
+        <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-trace-border">
+          <div className="font-mono text-[10px] tracking-[0.2em] text-trace-text-muted uppercase mb-2 sm:mb-3">
             Dela &amp; Ladda ner
           </div>
-          <p className="text-sm text-trace-text-secondary">
+          <p className="text-xs sm:text-sm text-trace-text-secondary">
             Använd certifikatet i offerter, på din hemsida, eller som QR-kod på produkten.
           </p>
         </div>
@@ -87,13 +91,13 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
           {/* LinkedIn */}
           <button
             onClick={handleLinkedInShare}
-            className="px-6 py-5 border-r border-b border-trace-border text-left
+            className="px-4 sm:px-6 py-4 sm:py-5 border-r border-b border-trace-border text-left
                        hover:bg-trace-surface-2 transition-colors group"
           >
-            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
+            <div className="font-mono text-[8px] sm:text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-1 sm:mb-2">
               Dela på
             </div>
-            <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
+            <div className="font-mono text-xs sm:text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
               LinkedIn →
             </div>
           </button>
@@ -101,13 +105,14 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
           {/* Email */}
           <button
             onClick={handleEmailShare}
-            className="px-6 py-5 border-r border-b border-trace-border text-left
-                       hover:bg-trace-surface-2 transition-colors group"
+            className="px-4 sm:px-6 py-4 sm:py-5 border-b border-trace-border text-left
+                       hover:bg-trace-surface-2 transition-colors group
+                       md:border-r"
           >
-            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
+            <div className="font-mono text-[8px] sm:text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-1 sm:mb-2">
               Skicka via
             </div>
-            <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
+            <div className="font-mono text-xs sm:text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
               E-post →
             </div>
           </button>
@@ -115,13 +120,13 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
           {/* Copy Link */}
           <button
             onClick={handleCopyLink}
-            className="px-6 py-5 border-r border-b border-trace-border text-left
+            className="px-4 sm:px-6 py-4 sm:py-5 border-r border-b border-trace-border text-left
                        hover:bg-trace-surface-2 transition-colors group"
           >
-            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
+            <div className="font-mono text-[8px] sm:text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-1 sm:mb-2">
               Kopiera
             </div>
-            <div className="font-mono text-sm transition-colors">
+            <div className="font-mono text-xs sm:text-sm transition-colors">
               {copied ? (
                 <span className="text-sis-pomegranate">Kopierad ✓</span>
               ) : (
@@ -133,35 +138,34 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
           {/* Download */}
           <button
             onClick={() => setShowDownloadModal(true)}
-            className="px-6 py-5 border-b border-trace-border text-left
-                       hover:bg-trace-surface-2 transition-colors group
-                       md:border-r-0"
+            className="px-4 sm:px-6 py-4 sm:py-5 border-b border-trace-border text-left
+                       hover:bg-trace-surface-2 transition-colors group"
           >
-            <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
+            <div className="font-mono text-[8px] sm:text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-1 sm:mb-2">
               Ladda ner
             </div>
-            <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
+            <div className="font-mono text-xs sm:text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
               Badge →
             </div>
           </button>
         </div>
 
         {/* Embed Code */}
-        <div className="px-8 py-6">
-          <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-3">
+        <div className="px-4 sm:px-8 py-4 sm:py-6">
+          <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2 sm:mb-3">
             Embed-kod för hemsida
           </div>
-          <p className="text-xs text-trace-text-muted mb-3">
+          <p className="text-xs text-trace-text-muted mb-3 hidden sm:block">
             Sätt badgen i dina offerter, på hemsidan eller skriv ut som QR-kod på produkten.
           </p>
-          <div className="flex gap-3">
-            <div className="flex-1 bg-trace-surface-2 border border-trace-border px-4 py-3
-                            font-mono text-xs text-trace-text-secondary overflow-x-auto whitespace-nowrap">
-              {`<img src="${API_URL}/badge/${runId}.svg" alt="TR/ACE Screening-LCA" />`}
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+            <div className="flex-1 bg-trace-surface-2 border border-trace-border px-3 sm:px-4 py-2 sm:py-3
+                            font-mono text-[10px] sm:text-xs text-trace-text-secondary overflow-x-auto whitespace-nowrap">
+              {`<img src="${API_URL}/badge/${runId}.svg" />`}
             </div>
             <button
               onClick={handleCopyEmbed}
-              className="px-6 py-3 border border-trace-border font-mono text-xs uppercase tracking-wide
+              className="px-4 sm:px-6 py-2 sm:py-3 border border-trace-border font-mono text-xs uppercase tracking-wide
                          text-trace-text hover:bg-sis-pomegranate hover:text-white
                          hover:border-sis-pomegranate transition-colors flex-shrink-0"
             >
@@ -256,22 +260,28 @@ export default function CertificateClient({ certificateUrl, productName, runId, 
                   </div>
                 </button>
 
-                {/* PDF (disabled) */}
-                <div className="w-full px-8 py-5 text-left opacity-40 cursor-not-allowed">
+                {/* PDF */}
+                <button
+                  onClick={() => {
+                    handleDownloadPDF()
+                    setShowDownloadModal(false)
+                  }}
+                  className="w-full px-8 py-5 text-left hover:bg-trace-surface-2 transition-colors group"
+                >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-mono text-sm text-trace-text">
+                      <div className="font-mono text-sm text-trace-text group-hover:text-sis-pomegranate transition-colors">
                         PDF-rapport
                       </div>
                       <div className="font-mono text-xs text-trace-text-muted mt-1">
-                        Fullständig ISO-rapport. Kräver konto.
+                        Fullständig ISO-rapport med alla indikatorer.
                       </div>
                     </div>
-                    <span className="font-mono text-xs text-trace-text-muted border border-trace-border px-2 py-1">
-                      PRO
+                    <span className="font-mono text-trace-text-muted group-hover:text-sis-pomegranate transition-colors">
+                      →
                     </span>
                   </div>
-                </div>
+                </button>
               </div>
 
               {/* Footer */}

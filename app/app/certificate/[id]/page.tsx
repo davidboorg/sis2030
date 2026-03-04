@@ -145,26 +145,26 @@ export default async function CertificatePage({ params }: { params: { id: string
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-6 py-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
         {/* Main Certificate */}
         <div className="border border-trace-border bg-trace-surface relative">
           {/* Pomegranate accent line */}
           <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-sis-pomegranate to-transparent" />
 
           {/* Certificate Header */}
-          <div className="px-10 py-10 border-b border-trace-border">
-            <div className="flex items-start justify-between">
+          <div className="px-4 sm:px-10 py-6 sm:py-10 border-b border-trace-border">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
               <div>
                 {/* Level indicator — Screening-LCA (ej externt granskad) */}
-                <div className="inline-flex items-center gap-2 mb-6">
+                <div className="inline-flex items-center gap-2 mb-4 sm:mb-6">
                   <div className="w-2 h-2 bg-verified-dot rounded-full shadow-[0_0_8px_#F32735]" />
-                  <span className="font-mono text-[10px] tracking-[0.15em] text-sis-pomegranate uppercase">
-                    Screening-LCA · ISO 14040/14044 · Ej externt granskad
+                  <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.15em] text-sis-pomegranate uppercase">
+                    Screening-LCA · ISO 14040/14044
                   </span>
                 </div>
 
                 {/* Product name */}
-                <h1 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-2">
+                <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight mb-2">
                   {productName}
                 </h1>
                 {orgName && (
@@ -174,8 +174,8 @@ export default async function CertificatePage({ params }: { params: { id: string
                 )}
               </div>
 
-              {/* Seal */}
-              <div className="w-16 h-16 border border-sis-pomegranate flex flex-col items-center justify-center flex-shrink-0">
+              {/* Seal - hidden on very small screens */}
+              <div className="hidden sm:flex w-16 h-16 border border-sis-pomegranate flex-col items-center justify-center flex-shrink-0">
                 <span className="font-mono text-[7px] tracking-[0.1em] text-trace-text-muted">TR/ACE</span>
                 <span className="font-display text-2xl text-sis-pomegranate italic font-light">/</span>
                 <span className="font-mono text-[6px] tracking-[0.05em] text-trace-text-muted text-center leading-tight">VERIFIED<br />2025</span>
@@ -184,19 +184,19 @@ export default async function CertificatePage({ params }: { params: { id: string
           </div>
 
           {/* Standards & level */}
-          <div className="px-10 py-6 border-b border-trace-border bg-trace-surface-2">
-            <div className="font-mono text-[10px] tracking-[0.2em] text-trace-text-muted uppercase mb-3 flex items-center gap-2">
+          <div className="px-4 sm:px-10 py-4 sm:py-6 border-b border-trace-border bg-trace-surface-2">
+            <div className="font-mono text-[10px] tracking-[0.2em] text-trace-text-muted uppercase mb-2 sm:mb-3 flex items-center gap-2">
               <span className="w-2 h-2 bg-sis-pomegranate rounded-full" />
               Beräkningsstandard
             </div>
             <div className="font-mono text-xs text-trace-text-secondary mb-1">
               Nivå 1 — TR/ACE screening
             </div>
-            <div className="font-mono text-xl tracking-wide">
+            <div className="font-mono text-lg sm:text-xl tracking-wide">
               ISO 14040<span className="text-sis-pomegranate">/</span>14044
             </div>
-            <div className="text-sm text-trace-text-muted mt-1">
-              Screening-LCA enligt ISO 14040/14044-metodiken. Ej fullständig konsult-LCA.
+            <div className="text-xs sm:text-sm text-trace-text-muted mt-1">
+              Screening-LCA enligt ISO 14040/14044-metodiken.
             </div>
           </div>
 
@@ -209,18 +209,19 @@ export default async function CertificatePage({ params }: { params: { id: string
               return (
                 <div
                   key={key}
-                  className="px-6 py-6 border-b border-r border-trace-border last:border-r-0
+                  className="px-3 sm:px-6 py-4 sm:py-6 border-b border-r border-trace-border
+                             [&:nth-child(2n)]:border-r-0 md:[&:nth-child(2n)]:border-r
                              md:[&:nth-child(4n)]:border-r-0"
                 >
-                  <div className="font-mono text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-2">
+                  <div className="font-mono text-[8px] sm:text-[9px] tracking-[0.15em] text-trace-text-muted uppercase mb-1 sm:mb-2">
                     {meta.label}
                   </div>
-                  <div className="font-mono text-2xl text-trace-text">
+                  <div className="font-mono text-lg sm:text-2xl text-trace-text">
                     {typeof value === 'number'
                       ? value.toLocaleString('sv-SE', { maximumFractionDigits: 1 })
                       : value}
                   </div>
-                  <div className="font-mono text-xs text-trace-text-muted">
+                  <div className="font-mono text-[10px] sm:text-xs text-trace-text-muted">
                     {meta.unit}
                   </div>
                 </div>
@@ -229,8 +230,8 @@ export default async function CertificatePage({ params }: { params: { id: string
           </div>
 
           {/* Metadata */}
-          <div className="px-10 py-8 border-t border-trace-border">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="px-4 sm:px-10 py-6 sm:py-8 border-t border-trace-border">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Left: Certificate data */}
               <div className="space-y-3">
                 <div className="flex justify-between font-mono text-sm">
@@ -275,11 +276,11 @@ export default async function CertificatePage({ params }: { params: { id: string
           </div>
 
           {/* Footer */}
-          <div className="px-10 py-4 border-t border-trace-border bg-trace-surface-2 flex items-center justify-between">
-            <div className="flex items-center gap-3">
+          <div className="px-4 sm:px-10 py-3 sm:py-4 border-t border-trace-border bg-trace-surface-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+            <div className="flex items-center gap-2 sm:gap-3">
               <div className="w-2 h-2 bg-sis-pomegranate rounded-full shadow-[0_0_8px_#F32735]" />
-              <span className="font-mono text-[10px] tracking-[0.1em] text-sis-pomegranate">
-                VERIFIED — trace.se/verify/{verificationId}
+              <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.1em] text-sis-pomegranate">
+                VERIFIED — trace.se/c/{params.id}
               </span>
             </div>
             <div className="font-display text-lg font-light">
