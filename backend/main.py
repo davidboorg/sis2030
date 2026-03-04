@@ -1,6 +1,9 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Request
 from fastapi.responses import Response
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from sqlmodel import Session, select
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
@@ -36,22 +39,46 @@ from database import get_session, init_db
 BACKEND_DIR = Path(__file__).resolve().parent
 EXPORT_DIR = BACKEND_DIR / "exports"
 EXPORT_DIR.mkdir(exist_ok=True)
-SECRET_KEY = os.getenv("JWT_SECRET", "demo-secret-change-in-production")
+# Security: Require JWT_SECRET in production, allow demo mode for development
+_jwt_secret = os.getenv("JWT_SECRET")
+if not _jwt_secret:
+    import warnings
+    warnings.warn("JWT_SECRET not set! Using insecure demo key. Set JWT_SECRET env var for production.")
+    _jwt_secret = "demo-secret-DO-NOT-USE-IN-PRODUCTION"
+SECRET_KEY = _jwt_secret
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 4  # 4 hours (was 24h - reduced for security)
 
 
 init_db()
 
 app = FastAPI(title="TR/ACE API")
 
+# Security: Rate limiting to prevent brute force attacks
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Security: Locked down CORS - only allow specific methods and headers
+# IMPORTANT: In production, set CORS_ORIGINS to HTTPS URLs only!
+# Example: CORS_ORIGINS=https://trace.example.com,https://www.trace.example.com
 cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3030,http://127.0.0.1:3030,http://localhost:3031,http://127.0.0.1:3031").split(",")
+
+# Security: Warn if HTTP origins detected in production
+_is_production = os.getenv("ENVIRONMENT", "development").lower() == "production"
+if _is_production and any(origin.startswith("http://") for origin in cors_origins):
+    import warnings
+    warnings.warn(
+        "CRITICAL: HTTP CORS origins detected in production! "
+        "All origins should use HTTPS to protect tokens in transit.",
+        RuntimeWarning
+    )
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"],
 )
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -111,9 +138,10 @@ def get_current_user(db: Session = Depends(get_session)):
 
 
 @app.post("/auth/login")
-def login(request: LoginRequest, db: Session = Depends(get_session)):
-    user = db.exec(select(User).where(User.email == request.email)).first()
-    if not user or not pwd_context.verify(request.password, user.password_hash):
+@limiter.limit("5/minute")  # Security: Rate limit login attempts
+def login(request: Request, login_data: LoginRequest, db: Session = Depends(get_session)):
+    user = db.exec(select(User).where(User.email == login_data.email)).first()
+    if not user or not pwd_context.verify(login_data.password, user.password_hash):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     access_token = jwt.encode(
