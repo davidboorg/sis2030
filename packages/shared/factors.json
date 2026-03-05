@@ -1,17 +1,17 @@
 {
   "materials": {
-    "mat_al_primary": {
-      "name": "Aluminium (primär)",
+    "steel": {
+      "name": "Stål (generisk)",
       "unit": "kg",
       "indicators": {
-        "co2e_kg": 8.2,
-        "water_l": 125.0,
-        "energy_mj": 155.0,
-        "land_m2a": 0.015,
-        "acid_mol_hplus": 0.042,
-        "eutro_g_po4": 0.008,
-        "biodiversity_impact": 0.3,
-        "recyclability": 0.95
+        "co2e_kg": 2.3,
+        "water_l": 45.0,
+        "energy_mj": 35.0,
+        "land_m2a": 0.008,
+        "acid_mol_hplus": 0.015,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.2,
+        "recyclability": 0.90
       }
     },
     "mat_steel": {
@@ -26,6 +26,20 @@
         "eutro_g_po4": 0.003,
         "biodiversity_impact": 0.2,
         "recyclability": 0.90
+      }
+    },
+    "mat_al_primary": {
+      "name": "Aluminium (primär)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 8.2,
+        "water_l": 125.0,
+        "energy_mj": 155.0,
+        "land_m2a": 0.015,
+        "acid_mol_hplus": 0.042,
+        "eutro_g_po4": 0.008,
+        "biodiversity_impact": 0.3,
+        "recyclability": 0.95
       }
     },
     "mat_pcb": {
@@ -49,6 +63,10 @@
         "co2e_kg": 0.3,
         "water_l": 15.0,
         "energy_mj": 8.0,
+        "land_m2a": 0.002,
+        "acid_mol_hplus": 0.001,
+        "eutro_g_po4": 0.0005,
+        "biodiversity_impact": 0.05,
         "recyclability": 0.85
       }
     },
@@ -59,7 +77,235 @@
         "co2e_kg": 12.5,
         "water_l": 180.0,
         "energy_mj": 45.0,
+        "land_m2a": 0.05,
+        "acid_mol_hplus": 0.025,
+        "eutro_g_po4": 0.01,
+        "biodiversity_impact": 0.4,
         "recyclability": 0.30
+      }
+    },
+    "foam": {
+      "name": "PU-skum",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 4.2,
+        "water_l": 32.0,
+        "energy_mj": 78.0,
+        "land_m2a": 0.005,
+        "acid_mol_hplus": 0.018,
+        "eutro_g_po4": 0.004,
+        "biodiversity_impact": 0.15,
+        "recyclability": 0.10
+      }
+    },
+    "polyester": {
+      "name": "Polyester (textil)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 5.5,
+        "water_l": 60.0,
+        "energy_mj": 95.0,
+        "land_m2a": 0.003,
+        "acid_mol_hplus": 0.012,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.1,
+        "recyclability": 0.70
+      }
+    },
+    "plastic": {
+      "name": "Plast (generisk PE/PP)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 3.1,
+        "water_l": 25.0,
+        "energy_mj": 68.0,
+        "land_m2a": 0.004,
+        "acid_mol_hplus": 0.010,
+        "eutro_g_po4": 0.002,
+        "biodiversity_impact": 0.12,
+        "recyclability": 0.55
+      }
+    },
+    "cardboard": {
+      "name": "Wellpapp",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 0.8,
+        "water_l": 20.0,
+        "energy_mj": 12.0,
+        "land_m2a": 0.006,
+        "acid_mol_hplus": 0.004,
+        "eutro_g_po4": 0.002,
+        "biodiversity_impact": 0.08,
+        "recyclability": 0.90
+      }
+    },
+    "wood": {
+      "name": "Trä (generisk)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 0.25,
+        "water_l": 12.0,
+        "energy_mj": 6.5,
+        "land_m2a": 0.003,
+        "acid_mol_hplus": 0.001,
+        "eutro_g_po4": 0.0004,
+        "biodiversity_impact": 0.04,
+        "recyclability": 0.80
+      }
+    },
+    "coating": {
+      "name": "Ytbeläggning (pulverlack)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 6.8,
+        "water_l": 40.0,
+        "energy_mj": 55.0,
+        "land_m2a": 0.002,
+        "acid_mol_hplus": 0.022,
+        "eutro_g_po4": 0.006,
+        "biodiversity_impact": 0.1,
+        "recyclability": 0.0
+      }
+    },
+    "concrete": {
+      "name": "Betong (C30/37)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 0.12,
+        "water_l": 8.0,
+        "energy_mj": 1.1,
+        "land_m2a": 0.001,
+        "acid_mol_hplus": 0.002,
+        "eutro_g_po4": 0.0008,
+        "biodiversity_impact": 0.08,
+        "recyclability": 0.70
+      }
+    },
+    "insulation": {
+      "name": "Mineralull (isolering)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 1.2,
+        "water_l": 15.0,
+        "energy_mj": 22.0,
+        "land_m2a": 0.002,
+        "acid_mol_hplus": 0.008,
+        "eutro_g_po4": 0.002,
+        "biodiversity_impact": 0.06,
+        "recyclability": 0.30
+      }
+    },
+    "cotton": {
+      "name": "Bomull (konventionell)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 8.0,
+        "water_l": 10000.0,
+        "energy_mj": 55.0,
+        "land_m2a": 0.8,
+        "acid_mol_hplus": 0.025,
+        "eutro_g_po4": 0.015,
+        "biodiversity_impact": 0.6,
+        "recyclability": 0.60
+      }
+    },
+    "dye": {
+      "name": "Textilfärg",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 12.0,
+        "water_l": 150.0,
+        "energy_mj": 85.0,
+        "land_m2a": 0.001,
+        "acid_mol_hplus": 0.04,
+        "eutro_g_po4": 0.02,
+        "biodiversity_impact": 0.15,
+        "recyclability": 0.0
+      }
+    },
+    "plastic_film": {
+      "name": "Plastfilm (PE)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 2.8,
+        "water_l": 25.0,
+        "energy_mj": 65.0,
+        "land_m2a": 0.003,
+        "acid_mol_hplus": 0.009,
+        "eutro_g_po4": 0.002,
+        "biodiversity_impact": 0.1,
+        "recyclability": 0.40
+      }
+    },
+    "pallet": {
+      "name": "Pall (trä)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 0.3,
+        "water_l": 10.0,
+        "energy_mj": 5.0,
+        "land_m2a": 0.003,
+        "acid_mol_hplus": 0.001,
+        "eutro_g_po4": 0.0004,
+        "biodiversity_impact": 0.05,
+        "recyclability": 0.85
+      }
+    },
+    "coolant": {
+      "name": "Kylvätska",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 1.5,
+        "water_l": 5.0,
+        "energy_mj": 20.0,
+        "land_m2a": 0.001,
+        "acid_mol_hplus": 0.005,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.08,
+        "recyclability": 0.20
+      }
+    },
+    "steel_rebar": {
+      "name": "Armeringsstål",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 1.9,
+        "water_l": 40.0,
+        "energy_mj": 30.0,
+        "land_m2a": 0.007,
+        "acid_mol_hplus": 0.013,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.18,
+        "recyclability": 0.95
+      }
+    },
+    "steel_raw": {
+      "name": "Stål (rå)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 2.3,
+        "water_l": 45.0,
+        "energy_mj": 35.0,
+        "land_m2a": 0.008,
+        "acid_mol_hplus": 0.015,
+        "eutro_g_po4": 0.003,
+        "biodiversity_impact": 0.2,
+        "recyclability": 0.90
+      }
+    },
+    "textile": {
+      "name": "Textil (generisk)",
+      "unit": "kg",
+      "indicators": {
+        "co2e_kg": 6.5,
+        "water_l": 2500.0,
+        "energy_mj": 75.0,
+        "land_m2a": 0.15,
+        "acid_mol_hplus": 0.018,
+        "eutro_g_po4": 0.008,
+        "biodiversity_impact": 0.25,
+        "recyclability": 0.45
       }
     }
   },
@@ -87,6 +333,114 @@
         "acid_mol_hplus": 0.0005,
         "eutro_g_po4": 0.0001
       }
+    },
+    "process_metal_forming": {
+      "name": "Metallformning (stansning/bockning)",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.35,
+        "water_l": 2.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0006,
+        "eutro_g_po4": 0.00015
+      }
+    },
+    "process_foam_molding": {
+      "name": "Skumformning",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.45,
+        "water_l": 3.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0007,
+        "eutro_g_po4": 0.0002
+      }
+    },
+    "process_sewing": {
+      "name": "Sömnadsprocess",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.12,
+        "water_l": 0.5,
+        "energy_mj": 3.6,
+        "land_m2a": 0.00005,
+        "acid_mol_hplus": 0.0002,
+        "eutro_g_po4": 0.00005
+      }
+    },
+    "process_packaging": {
+      "name": "Förpackningsprocess",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.2,
+        "water_l": 1.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.00005,
+        "acid_mol_hplus": 0.0003,
+        "eutro_g_po4": 0.0001
+      }
+    },
+    "process_cnc_machining": {
+      "name": "CNC-bearbetning",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.38,
+        "water_l": 4.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0007,
+        "eutro_g_po4": 0.0002
+      }
+    },
+    "process_surface_treatment": {
+      "name": "Ytbehandling",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.5,
+        "water_l": 8.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0002,
+        "acid_mol_hplus": 0.0012,
+        "eutro_g_po4": 0.0004
+      }
+    },
+    "process_concrete_mixing": {
+      "name": "Betongblandning",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.25,
+        "water_l": 2.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0004,
+        "eutro_g_po4": 0.0001
+      }
+    },
+    "process_weaving": {
+      "name": "Vävning",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.3,
+        "water_l": 5.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0001,
+        "acid_mol_hplus": 0.0005,
+        "eutro_g_po4": 0.0002
+      }
+    },
+    "process_dyeing": {
+      "name": "Färgning (textil)",
+      "unit": "kWh",
+      "indicators": {
+        "co2e_kg": 0.8,
+        "water_l": 50.0,
+        "energy_mj": 3.6,
+        "land_m2a": 0.0002,
+        "acid_mol_hplus": 0.002,
+        "eutro_g_po4": 0.001
+      }
     }
   },
   "transport": {
@@ -100,6 +454,18 @@
         "land_m2a": 0.00001,
         "acid_mol_hplus": 0.00002,
         "eutro_g_po4": 0.00001
+      }
+    },
+    "road_freight": {
+      "name": "Vägtransport",
+      "unit": "ton-km",
+      "indicators": {
+        "co2e_kg": 0.08,
+        "water_l": 0.1,
+        "energy_mj": 1.2,
+        "land_m2a": 0.00005,
+        "acid_mol_hplus": 0.00015,
+        "eutro_g_po4": 0.00008
       }
     },
     "road_eu": {
@@ -116,5 +482,3 @@
     }
   }
 }
-
-

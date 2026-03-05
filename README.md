@@ -1,8 +1,8 @@
-# 2030+ Calculator - Digitalisering av hållbarhetsstandarder
+# TR/ACE - Screening-LCA för svenska tillverkare
 
 ## Översikt
 
-2030+ Calculator digitaliserar ISO-hållbarhetsstandarder (ISO 14067, 14046, 14055, 59004) för Svenska institutet för standarder (SIS). Systemet gör internationella standarder praktiskt tillämpbara för svenska tillverkningsföretag genom digital livscykelanalys och cirkuläritetsbedömning.
+TR/ACE är en screening-LCA plattform som ger svenska tillverkare tillgång till ISO-kompatibel miljödata - på minuter istället för veckor, för en bråkdel av konsultkostnaden.
 
 ## Funktioner
 
@@ -10,7 +10,7 @@
 - **ISO-kompatibel beräkning** enligt ISO 14040-serien
 - **BOM-byggare** med hierarkisk komponentstruktur
 - **AI-stöd** för materialmatching och förbättringsförslag
-- **ISO-rapporter** med metodbilaga
+- **Hållbarhetsbevis** att dela med kunder och i upphandlingar
 
 ## Teknisk stack
 
@@ -54,7 +54,7 @@ pnpm dev
 ## Projektstruktur
 
 ```
-2030-calculator/
+trace-lca/
 ├── app/                    # Next.js 14 frontend
 │   ├── app/               # App Router
 │   │   ├── page.tsx      # Landing page
@@ -80,23 +80,6 @@ pnpm dev
 - **E-post**: demo@skandiform.example
 - **Lösenord**: Demo123!
 
-## Demo för SIS - Måndag
-
-### Öppning:
-
-"Vi visar hur Skandiform AB med 15 anställda i Tibro kan använda samma ISO-verktyg som IKEA - men för 2,000 kr/månad istället för 200,000 kr i konsultkostnad"
-
-### Huvudbudskap:
-
-- 95% av svenska företag är SME
-- De har samma miljökrav men inte samma resurser
-- 2030+ Calculator demokratiserar hållbarhetsdata
-- SIS blir navet mellan SME och storföretag
-
-### Avslutning:
-
-"När möbeltillverkaren i Tibro, bagaren i Lund och verkstaden i Gällivare kan dokumentera sin miljöpåverkan - då har SIS verkligen gått från standard till handling"
-
 ## ISO-standarder
 
 Systemet implementerar:
@@ -120,5 +103,3 @@ Systemet implementerar:
 ## Licens
 
 © 2024 Svenska institutet för standarder. Alla rättigheter förbehållna.
-
-

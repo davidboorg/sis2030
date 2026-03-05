@@ -2,6 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #__next { height: 100%; }
+:root {
+  /* TR/ACE Dark Mode — built on SIS slate scale */
+  --trace-bg: #0F172A;
+  --trace-surface: #1E293B;
+  --trace-surface-2: #334155;
+  --trace-border: #1E293B;
+  --trace-border-light: #334155;
+  --trace-text: #F8FAFC;
+  --trace-text-muted: #64748B;
+  --trace-text-secondary: #94A3B8;
 
+  /* SIS / Standard Authority */
+  --sis: #E3000F;
+  --sis-pomegranate: #F32735;
+  --pomegranate-dim: rgba(243, 39, 53, 0.09);
+  --pomegranate-border: rgba(243, 39, 53, 0.28);
 
+  /* Verified state */
+  --verified: #F1F5F9;
+  --verified-dot: #F32735;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  background: var(--trace-bg);
+  color: var(--trace-text);
+}
+
+/* TR/ACE Typography utilities */
+@layer components {
+  .trace-eyebrow {
+    @apply font-mono text-[10px] tracking-[0.25em] uppercase text-trace-text-muted;
+  }
+
+  .trace-label {
+    @apply font-mono text-[11px] tracking-[0.2em] uppercase text-trace-text-muted;
+  }
+
+  .trace-heading {
+    @apply font-display font-light tracking-tight;
+  }
+
+  .trace-accent {
+    @apply text-sis-pomegranate italic;
+  }
+}

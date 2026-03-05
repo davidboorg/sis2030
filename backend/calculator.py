@@ -13,7 +13,13 @@ BASE_INDICATORS = ["co2e_kg", "water_l", "energy_mj", "land_m2a", "acid_mol_hplu
 FACTORS_PATH = Path(__file__).resolve().parent.parent / "packages" / "shared" / "factors.json"
 
 with FACTORS_PATH.open(encoding="utf-8") as fh:
-    FACTORS: Dict[str, Dict[str, float]] = json.load(fh)
+    _RAW_FACTORS = json.load(fh)
+
+# Flatten nested structure: {"materials": {"steel": {"indicators": {...}}}} → {"steel": {...}}
+FACTORS: Dict[str, Dict[str, float]] = {}
+for _category in ("materials", "processes", "transport"):
+    for _ref, _entry in _RAW_FACTORS.get(_category, {}).items():
+        FACTORS[_ref] = _entry.get("indicators", _entry)
 
 
 def _factor(ref: str) -> Dict[str, float]:
@@ -95,14 +101,14 @@ def calculate_indicators(db: Session, product_id: int, dataset_version: str, met
             for indicator in BASE_INDICATORS:
                 if indicator in factors:
                     impact = factors[indicator] * material.mass_kg * recycled_factor
-                    
-                    # If using Climatiq, skip local CO2e addition to global total, 
-                    # but keep it for component breakdown if needed (or overwrite)
+
+                    # If using Climatiq, skip local CO2e addition to global total
+                    # but still track in component_totals for breakdown
                     if using_climatiq and indicator == "co2e_kg":
-                        # We still calculate it for component_totals to have a breakdown
-                        # but we won't add it to the main 'indicators' dict if we overwrite later
-                        pass
-                    
+                        # Only add to component totals for breakdown, not to global indicators
+                        component_totals[indicator] += impact
+                        continue
+
                     indicators[indicator] += impact
                     component_totals[indicator] += impact
 
